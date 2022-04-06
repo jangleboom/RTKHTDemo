@@ -129,19 +129,26 @@ extension HDTRCKRViewController: CBCentralManagerDelegate {
       
     case .unknown:
       print("central.state is .unknown")
+      fallthrough
     case .resetting:
       print("central.state is .resetting")
+      fallthrough
     case .unsupported:
       print("central.state is .unsupported")
+      fallthrough
     case .unauthorized:
       print("central.state is .unauthorized")
+      fallthrough
     case .poweredOff:
       print("central.state is .poweredOff")
+      fallthrough
     case .poweredOn:
       print("central.state is .poweredOn")
       print("scanning for peripherals with service(s): \([headTrackerServiceCBUUID])")
       centralManager.scanForPeripherals(withServices: [headTrackerServiceCBUUID], options: nil)
     
+    @unknown default:
+      print("Action needed: Handle unknown default")
     }
   }
   
