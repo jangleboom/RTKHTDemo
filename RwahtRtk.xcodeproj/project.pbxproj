@@ -69,9 +69,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5C03606A1FB90013007BC593 /* HeadtrackerMonitor */ = {
+		5C03606A1FB90013007BC593 /* RwahtRtk */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5C03607D1FB90013007BC593 /* Build configuration list for PBXNativeTarget "HeadtrackerMonitor" */;
+			buildConfigurationList = 5C03607D1FB90013007BC593 /* Build configuration list for PBXNativeTarget "RwahtRtk" */;
 			buildPhases = (
 				5C0360671FB90013007BC593 /* Sources */,
 				5C0360681FB90013007BC593 /* Frameworks */,
@@ -81,7 +81,7 @@
 			);
 			dependencies = (
 			);
-			name = HeadtrackerMonitor;
+			name = RwahtRtk;
 			productName = HeartRateMonitor;
 			productReference = 5C03606B1FB90013007BC593 /* headtracker.app */;
 			productType = "com.apple.product-type.application";
@@ -102,7 +102,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5C0360661FB90013007BC593 /* Build configuration list for PBXProject "HeadtrackerMonitor" */;
+			buildConfigurationList = 5C0360661FB90013007BC593 /* Build configuration list for PBXProject "RwahtRtk" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -115,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5C03606A1FB90013007BC593 /* HeadtrackerMonitor */,
+				5C03606A1FB90013007BC593 /* RwahtRtk */,
 			);
 		};
 /* End PBXProject section */
@@ -286,7 +286,7 @@
 				DEVELOPMENT_TEAM = JQK8VU2G3P;
 				INFOPLIST_FILE = "$(SRCROOT)/HeadtrackerMonitor/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tu-berlin.ak.HeadtrackerMonitor";
+				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RwahtRtk;
 				PRODUCT_NAME = headtracker;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -301,7 +301,7 @@
 				DEVELOPMENT_TEAM = JQK8VU2G3P;
 				INFOPLIST_FILE = "$(SRCROOT)/HeadtrackerMonitor/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tu-berlin.ak.HeadtrackerMonitor";
+				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RwahtRtk;
 				PRODUCT_NAME = headtracker;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -311,7 +311,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5C0360661FB90013007BC593 /* Build configuration list for PBXProject "HeadtrackerMonitor" */ = {
+		5C0360661FB90013007BC593 /* Build configuration list for PBXProject "RwahtRtk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C03607B1FB90013007BC593 /* Debug */,
@@ -320,7 +320,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5C03607D1FB90013007BC593 /* Build configuration list for PBXNativeTarget "HeadtrackerMonitor" */ = {
+		5C03607D1FB90013007BC593 /* Build configuration list for PBXNativeTarget "RwahtRtk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C03607E1FB90013007BC593 /* Debug */,
