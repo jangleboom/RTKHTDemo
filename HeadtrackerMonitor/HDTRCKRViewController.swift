@@ -64,7 +64,7 @@ class HDTRCKRViewController: UIViewController {
     if  token.count == 3 {
       var yaw = String(token[0])
       var pitch = String(token[1])
-      let linAccelZ = String(token[2])
+      let linAccelZ = ((token[2] as NSString).floatValue < 0) ? String(token[2]) : (" " + String(token[2]))
      
 //      var steps = String(token.last!)
 //      headTrackerLabel.text = "yaw: \(yaw)°\npitch: \(pitch)°\nlinAccelZ: \(linAccelZ)\nsteps: \(steps)"
@@ -104,6 +104,7 @@ class HDTRCKRViewController: UIViewController {
       default:
         print("too many digits (pitch)")
       }
+      
 
       
 //      headTrackerLabel.text = "azimuth: \(yaw)°\nelevation: \(pitch)°"
