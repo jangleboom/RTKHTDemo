@@ -39,6 +39,7 @@
 		5C0360621FB90013007BC593 = {
 			isa = PBXGroup;
 			children = (
+				AC12DA2027FF56E60053E194 /* ReadMe.txt */,
 				5C03606D1FB90013007BC593 /* RwahtRtk */,
 				5C03606C1FB90013007BC593 /* Products */,
 			);
@@ -63,7 +64,6 @@
 				5C0360751FB90013007BC593 /* Assets.xcassets */,
 				5C0360771FB90013007BC593 /* LaunchScreen.storyboard */,
 				5C03607A1FB90013007BC593 /* Info.plist */,
-				AC12DA2027FF56E60053E194 /* ReadMe.txt */,
 			);
 			path = RwahtRtk;
 			sourceTree = "<group>";
