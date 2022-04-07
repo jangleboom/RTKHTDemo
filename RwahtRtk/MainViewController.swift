@@ -47,11 +47,18 @@ class HDTRCKRViewController: UIViewController {
   @IBOutlet weak var headTrackerLabel: UILabel!
   @IBOutlet weak var additionalSensorDataLabel: UILabel!
 
+  @IBOutlet weak var yawTextField: UITextField!
+  @IBOutlet weak var yawLabel: UILabel!
   override func viewDidLoad() {
     super.viewDidLoad()
  
     centralManager = CBCentralManager(delegate: self, queue: nil)
-    
+    yawTextField.backgroundColor = UIColor.white
+    yawTextField.textColor = UIColor.blue
+    yawTextField.borderStyle = .none
+    yawTextField.text = "NaN"
+    yawLabel.textColor = UIColor.black
+    yawLabel.text = "yaw"
     
     // Make the digits monospaces to avoid shifting when the numbers change
 //    headTrackerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: headTrackerLabel.font!.pointSize, weight: .regular)
@@ -109,6 +116,7 @@ class HDTRCKRViewController: UIViewController {
       
 //      headTrackerLabel.text = "azimuth: \(yaw)°\nelevation: \(pitch)°"
       headTrackerLabel.text = "yaw: \(yaw)°\npitch: \(pitch)°\nlinAccelZ: \(linAccelZ)"
+      yawTextField.text = "\(yaw)°"
     }
       else if token.count == 1 {
       let data = String(token.first!)
@@ -204,16 +212,16 @@ extension HDTRCKRViewController: CBPeripheralDelegate {
     for characteristic in characteristics {
       print(characteristic)
       
-      if characteristic.properties.contains(.read) {
-        print("\(characteristic.uuid): properties contains .read")
-      }
+//      if characteristic.properties.contains(.read) {
+//        print("\(characteristic.uuid): properties contains .read")
+//      }
       if characteristic.properties.contains(.notify) {
         print("\(characteristic.uuid): properties contains .notify")
         peripheral.setNotifyValue(true, for: characteristic)
       }
-      if characteristic.properties.contains(.write) {
-        print("\(characteristic.uuid): properties contains .write")
-      }
+//      if characteristic.properties.contains(.write) {
+//        print("\(characteristic.uuid): properties contains .write")
+//      }
       
       peripheral.readValue(for: characteristic)
       
