@@ -22,7 +22,6 @@
 		5C0360751FB90013007BC593 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C0360781FB90013007BC593 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C03607A1FB90013007BC593 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AC12DA2027FF56E60053E194 /* ReadMe.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +38,6 @@
 		5C0360621FB90013007BC593 = {
 			isa = PBXGroup;
 			children = (
-				AC12DA2027FF56E60053E194 /* ReadMe.txt */,
 				5C03606D1FB90013007BC593 /* RwahtRtk */,
 				5C03606C1FB90013007BC593 /* Products */,
 			);
