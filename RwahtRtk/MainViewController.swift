@@ -44,88 +44,61 @@ class HDTRCKRViewController: UIViewController {
   var centralManager: CBCentralManager!
   var headTrackerPeripheral: CBPeripheral!
   
-  @IBOutlet weak var headTrackerLabel: UILabel!
-  @IBOutlet weak var additionalSensorDataLabel: UILabel!
-
+  @IBOutlet weak var deviceNameTextField: UITextField!
   @IBOutlet weak var yawTextField: UITextField!
+  @IBOutlet weak var pitchTextField: UITextField!
+  @IBOutlet weak var linAccelZTextField: UITextField!
+  @IBOutlet weak var deviceNameLabel: UILabel!
   @IBOutlet weak var yawLabel: UILabel!
+  @IBOutlet weak var pitchLabel: UILabel!
+  @IBOutlet weak var linAccelZLabel: UILabel!
   override func viewDidLoad() {
     super.viewDidLoad()
  
     centralManager = CBCentralManager(delegate: self, queue: nil)
+    deviceNameTextField.backgroundColor = UIColor.white
+    deviceNameTextField.textColor = UIColor.blue
+    deviceNameTextField.borderStyle = .none
+    deviceNameTextField.text = "not connected"
     yawTextField.backgroundColor = UIColor.white
     yawTextField.textColor = UIColor.blue
     yawTextField.borderStyle = .none
-    yawTextField.text = "NaN"
-    yawLabel.textColor = UIColor.black
-    yawLabel.text = "yaw"
+    yawTextField.text = "---"
+    pitchTextField.backgroundColor = UIColor.white
+    pitchTextField.textColor = UIColor.blue
+    pitchTextField.borderStyle = .none
+    pitchTextField.text = "---"
+    linAccelZTextField.backgroundColor = UIColor.white
+    linAccelZTextField.textColor = UIColor.blue
+    linAccelZTextField.borderStyle = .none
+    linAccelZTextField.text = "---"
     
-    // Make the digits monospaces to avoid shifting when the numbers change
-//    headTrackerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: headTrackerLabel.font!.pointSize, weight: .regular)
+    deviceNameLabel.textColor = UIColor.black
+    deviceNameLabel.text = "Device"
+    yawLabel.textColor = UIColor.black
+    yawLabel.text = "Yaw"
+    pitchLabel.textColor = UIColor.black
+    pitchLabel.text = "Pitch"
+    linAccelZLabel.textColor = UIColor.black
+    linAccelZLabel.text = "Lin. Accel. Z"
   }
-
+ 
+  
   func onHeadtrackingReceived(_ orientation: String) {
     let delimiter = " "
     let token = orientation.components(separatedBy: delimiter)
-    print(token.count)
+//    print(token.count)
     if  token.count == 3 {
-      var yaw = String(token[0])
-      var pitch = String(token[1])
+      let yaw = String(token[0])
+      let pitch = String(token[1])
       let linAccelZ = ((token[2] as NSString).floatValue < 0) ? String(token[2]) : (" " + String(token[2]))
-     
-//      var steps = String(token.last!)
-//      headTrackerLabel.text = "yaw: \(yaw)°\npitch: \(pitch)°\nlinAccelZ: \(linAccelZ)\nsteps: \(steps)"
-      
-      switch yaw.count {
-      case 0:
-        yaw = "nil"
-        break
-      case 1:
-        yaw = "  " + yaw
-        break
-      case 2:
-        yaw = " " + yaw
-        break
-      case 3:
-        break
-        
-      default:
-         print("too many digits (yaw)")
-      }
-      
-      switch pitch.count {
-      case 0:
-        pitch = "nil"
-        break
-      case 1:
-        pitch = "   " + pitch
-        break
-      case 2:
-        pitch = "  " + pitch
-        break
-      case 3:
-        pitch = " " + pitch
-        break
-      case 4:
-        break
-      default:
-        print("too many digits (pitch)")
-      }
-      
 
-      
-//      headTrackerLabel.text = "azimuth: \(yaw)°\nelevation: \(pitch)°"
-      headTrackerLabel.text = "yaw: \(yaw)°\npitch: \(pitch)°\nlinAccelZ: \(linAccelZ)"
       yawTextField.text = "\(yaw)°"
+      pitchTextField.text = "\(pitch)°"
+      linAccelZTextField.text = "\(linAccelZ)"
+    } else {
+      print("Data format does not fit")
     }
-      else if token.count == 1 {
-      let data = String(token.first!)
-        headTrackerLabel.text = "data: \(data)"
-      }
-    
-    
-    
-    print(headTrackerLabel.text ?? "no data")
   }
 }
 
@@ -173,7 +146,7 @@ extension HDTRCKRViewController: CBCentralManagerDelegate {
         headTrackerPeripheral.delegate = self
         centralManager.stopScan()
         central.connect(headTrackerPeripheral)
-        additionalSensorDataLabel.text = headtrackerDeviceName
+        deviceNameTextField.text = headtrackerDeviceName
     }
     
   }
