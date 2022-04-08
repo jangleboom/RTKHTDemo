@@ -12,6 +12,8 @@
 		5C0360741FB90013007BC593 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C0360721FB90013007BC593 /* Main.storyboard */; };
 		5C0360761FB90013007BC593 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C0360751FB90013007BC593 /* Assets.xcassets */; };
 		5C0360791FB90013007BC593 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C0360771FB90013007BC593 /* LaunchScreen.storyboard */; };
+		AC77703C2800445100AD688F /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC77703A2800445100AD688F /* Metal.framework */; };
+		AC77703D2800445100AD688F /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC77703B2800445100AD688F /* MetalKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		5C0360751FB90013007BC593 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C0360781FB90013007BC593 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C03607A1FB90013007BC593 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC77703A2800445100AD688F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		AC77703B2800445100AD688F /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC77703C2800445100AD688F /* Metal.framework in Frameworks */,
+				AC77703D2800445100AD688F /* MetalKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +46,7 @@
 			children = (
 				5C03606D1FB90013007BC593 /* RwahtRtk */,
 				5C03606C1FB90013007BC593 /* Products */,
+				AC7770392800445100AD688F /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -64,6 +71,15 @@
 				5C03607A1FB90013007BC593 /* Info.plist */,
 			);
 			path = RwahtRtk;
+			sourceTree = "<group>";
+		};
+		AC7770392800445100AD688F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC77703A2800445100AD688F /* Metal.framework */,
+				AC77703B2800445100AD688F /* MetalKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -94,7 +110,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 1330;
-				ORGANIZATIONNAME = "Ray Wenderlich";
+				ORGANIZATIONNAME = mr.markuese;
 				TargetAttributes = {
 					5C03606A1FB90013007BC593 = {
 						CreatedOnToolsVersion = 9.1;
@@ -290,7 +306,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RwahtRtk;
 				PRODUCT_NAME = headtracker;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -305,7 +321,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RwahtRtk;
 				PRODUCT_NAME = headtracker;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -30,10 +30,11 @@
 
 import UIKit
 import CoreBluetooth
+import MapKit
 
 
 
-class HDTRCKRViewController: UIViewController {
+class MainViewController: UIViewController {
   
   //let headTrackerServiceCBUUID = CBUUID(string: "0xFFE0")
   //let headTrackerMeasurementCharacteristicCBUUID = CBUUID(string: "0xFFE1")
@@ -44,6 +45,7 @@ class HDTRCKRViewController: UIViewController {
   var centralManager: CBCentralManager!
   var headTrackerPeripheral: CBPeripheral!
   
+  @IBOutlet weak var mainMapView: MKMapView!
   @IBOutlet weak var deviceNameTextField: UITextField!
   @IBOutlet weak var yawTextField: UITextField!
   @IBOutlet weak var pitchTextField: UITextField!
@@ -97,39 +99,41 @@ class HDTRCKRViewController: UIViewController {
       pitchTextField.text = "\(pitch)°"
       linAccelZTextField.text = "\(linAccelZ)"
     } else {
-      print("Data format does not fit")
+      print("onHeadtrackingReceived: Data format does not fit (!=3)")
     }
   }
 }
 
 
 
-extension HDTRCKRViewController: CBCentralManagerDelegate {
+extension MainViewController: CBCentralManagerDelegate {
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     switch central.state {
       
     case .unknown:
       print("central.state is .unknown")
-      fallthrough
+      break
     case .resetting:
       print("central.state is .resetting")
-      fallthrough
+      break
     case .unsupported:
       print("central.state is .unsupported")
-      fallthrough
+      break
     case .unauthorized:
       print("central.state is .unauthorized")
-      fallthrough
+      break
     case .poweredOff:
       print("central.state is .poweredOff")
-      fallthrough
+      break
     case .poweredOn:
       print("central.state is .poweredOn")
       print("scanning for peripherals with service(s): \([headTrackerServiceCBUUID])")
       centralManager.scanForPeripherals(withServices: [headTrackerServiceCBUUID], options: nil)
+      break
     
     @unknown default:
-      print("Action needed: Handle unknown default")
+      print("centralManagerDidUpdateState - Action needed: Handle unknown default")
+      break
     }
   }
   
@@ -139,7 +143,7 @@ extension HDTRCKRViewController: CBCentralManagerDelegate {
   func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
     print(String("Peripheral discovered: \(peripheral.name ?? "unknown")"))
     // You can change this to check for UUID from security reasons
-    
+    // TODO: No hard coded device name here
     let found: Bool = peripheral.name?.isEqualToString(find: headtrackerDeviceName) ?? false
     if (found) {
         headTrackerPeripheral = peripheral
@@ -167,7 +171,7 @@ extension HDTRCKRViewController: CBCentralManagerDelegate {
 
 
 
-extension HDTRCKRViewController: CBPeripheralDelegate {
+extension MainViewController: CBPeripheralDelegate {
   
   func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
     guard let services = peripheral.services else { return }
@@ -185,16 +189,16 @@ extension HDTRCKRViewController: CBPeripheralDelegate {
     for characteristic in characteristics {
       print(characteristic)
       
-//      if characteristic.properties.contains(.read) {
-//        print("\(characteristic.uuid): properties contains .read")
-//      }
+      if characteristic.properties.contains(.read) {
+        print("\(characteristic.uuid): properties contains .read")
+      }
       if characteristic.properties.contains(.notify) {
         print("\(characteristic.uuid): properties contains .notify")
         peripheral.setNotifyValue(true, for: characteristic)
       }
-//      if characteristic.properties.contains(.write) {
-//        print("\(characteristic.uuid): properties contains .write")
-//      }
+      if characteristic.properties.contains(.write) {
+        print("\(characteristic.uuid): properties contains .write")
+      }
       
       peripheral.readValue(for: characteristic)
       
@@ -225,15 +229,7 @@ extension HDTRCKRViewController: CBPeripheralDelegate {
       packetStr.append(char)
     }
 //    print(packetStr)
-    
-//    let firstBitValue = byteArray[0] & 0x01
-//    if firstBitValue == 0 {
-//      // Heart Rate Value Format is in the 2nd byte
-//      return Int(byteArray[1])
-//    } else {
-//      // Heart Rate Value Format is in the 2nd and 3rd bytes
-      return  packetStr//(Int(byteArray[1]) << 8) + Int(byteArray[2])
-//    }
+      return  packetStr
   }
   
   

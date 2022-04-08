@@ -11,13 +11,13 @@
         <!--Headtracker Monitor-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HDTRCKRViewController" customModule="headtracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="headtracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="jji-On-ewZ">
-                                <rect key="frame" x="40" y="20" width="291" height="286"/>
+                                <rect key="frame" x="42" y="30" width="291" height="286"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="E2K-BD-Gn8">
                                         <rect key="frame" x="0.0" y="0.0" width="291" height="142"/>
@@ -98,18 +98,18 @@
                                 </subviews>
                             </stackView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="FJM-BV-U0N">
-                                <rect key="frame" x="40" y="326" width="291" height="277"/>
+                                <rect key="frame" x="42" y="336" width="291" height="257"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="jji-On-ewZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="ei5-nV-PM8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="FJM-BV-U0N" secondAttribute="trailing" constant="28" id="fck-MF-3CW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jji-On-ewZ" secondAttribute="trailing" constant="28" id="gCw-Hd-0JJ"/>
-                            <constraint firstItem="FJM-BV-U0N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="hSJ-rk-xp1"/>
-                            <constraint firstItem="jji-On-ewZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="kz1-zD-0fO"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="FJM-BV-U0N" secondAttribute="bottom" constant="20" id="tl4-Vh-F9j"/>
+                            <constraint firstItem="jji-On-ewZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="42" id="ei5-nV-PM8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FJM-BV-U0N" secondAttribute="trailing" constant="26" id="fck-MF-3CW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jji-On-ewZ" secondAttribute="trailing" constant="26" id="gCw-Hd-0JJ"/>
+                            <constraint firstItem="FJM-BV-U0N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="42" id="hSJ-rk-xp1"/>
+                            <constraint firstItem="jji-On-ewZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="kz1-zD-0fO"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="FJM-BV-U0N" secondAttribute="bottom" constant="30" id="tl4-Vh-F9j"/>
                             <constraint firstItem="FJM-BV-U0N" firstAttribute="top" secondItem="jji-On-ewZ" secondAttribute="bottom" constant="20" id="zk7-F6-kcL"/>
                         </constraints>
                     </view>
@@ -119,6 +119,7 @@
                         <outlet property="deviceNameTextField" destination="CMj-xj-Wqy" id="nSI-d4-8c8"/>
                         <outlet property="linAccelZLabel" destination="U4L-qf-8Qp" id="bda-la-B77"/>
                         <outlet property="linAccelZTextField" destination="Way-Xs-p14" id="wzk-9S-fLW"/>
+                        <outlet property="mainMapView" destination="FJM-BV-U0N" id="qUS-qq-a1Q"/>
                         <outlet property="pitchLabel" destination="hl7-ZO-ljo" id="K62-WF-0Sh"/>
                         <outlet property="pitchTextField" destination="FKx-Zn-396" id="4Ky-jg-40h"/>
                         <outlet property="yawLabel" destination="Ho2-h2-WBf" id="T8k-VL-vRn"/>
