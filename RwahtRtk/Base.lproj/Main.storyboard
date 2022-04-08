@@ -19,7 +19,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="jji-On-ewZ">
                                 <rect key="frame" x="42" y="30" width="291" height="286"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="E2K-BD-Gn8">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="90" id="E2K-BD-Gn8">
                                         <rect key="frame" x="0.0" y="0.0" width="291" height="142"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
@@ -30,7 +30,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMj-xj-Wqy">
-                                                <rect key="frame" x="85.5" y="0.0" width="205.5" height="142"/>
+                                                <rect key="frame" x="125.5" y="0.0" width="165.5" height="142"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -98,19 +98,18 @@
                                 </subviews>
                             </stackView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJM-BV-U0N">
-                                <rect key="frame" x="42" y="336" width="291" height="257"/>
+                                <rect key="frame" x="0.0" y="336" width="375" height="287"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="FJM-BV-U0N" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0h4-OY-bjk"/>
+                            <constraint firstItem="FJM-BV-U0N" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="CTP-J3-JrO"/>
+                            <constraint firstItem="FJM-BV-U0N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Z4S-du-vwX"/>
                             <constraint firstItem="jji-On-ewZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="42" id="ei5-nV-PM8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="FJM-BV-U0N" secondAttribute="trailing" constant="26" id="fck-MF-3CW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jji-On-ewZ" secondAttribute="trailing" constant="26" id="gCw-Hd-0JJ"/>
-                            <constraint firstItem="FJM-BV-U0N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="42" id="hSJ-rk-xp1"/>
                             <constraint firstItem="jji-On-ewZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="kz1-zD-0fO"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="FJM-BV-U0N" secondAttribute="bottom" constant="30" id="tl4-Vh-F9j"/>
-                            <constraint firstItem="FJM-BV-U0N" firstAttribute="top" secondItem="jji-On-ewZ" secondAttribute="bottom" constant="20" id="zk7-F6-kcL"/>
+                            <constraint firstItem="FJM-BV-U0N" firstAttribute="top" secondItem="jji-On-ewZ" secondAttribute="bottom" constant="20" id="pIF-Az-1YZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Headtracker Monitor" id="oM9-J4-V4h"/>
