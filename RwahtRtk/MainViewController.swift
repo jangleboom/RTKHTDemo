@@ -31,21 +31,12 @@
 import UIKit
 import CoreBluetooth
 import MapKit
+import CoreLocation
 
 
 
-class MainViewController: UIViewController {
-  
-  //let headTrackerServiceCBUUID = CBUUID(string: "0xFFE0")
-  //let headTrackerMeasurementCharacteristicCBUUID = CBUUID(string: "0xFFE1")
-  let headTrackerServiceCBUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
-  let headTrackerMeasurementCharacteristicCBUUID = CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
-  let headtrackerDeviceName = "rwaht_rtk_01"
-
-  var centralManager: CBCentralManager!
-  var headTrackerPeripheral: CBPeripheral!
-  
-  @IBOutlet weak var mainMapView: MKMapView!
+class MainViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+ 
   @IBOutlet weak var deviceNameTextField: UITextField!
   @IBOutlet weak var yawTextField: UITextField!
   @IBOutlet weak var pitchTextField: UITextField!
@@ -54,8 +45,22 @@ class MainViewController: UIViewController {
   @IBOutlet weak var yawLabel: UILabel!
   @IBOutlet weak var pitchLabel: UILabel!
   @IBOutlet weak var linAccelZLabel: UILabel!
+  @IBOutlet weak var mapView: MKMapView!
+  
+  var locationManager: CLLocationManager!
+  let headTrackerServiceCBUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
+  let headTrackerMeasurementCharacteristicCBUUID = CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
+  let deviceNamePrefix = "HTRTK_"
+  var centralManager: CBCentralManager!
+  var headTrackerPeripheral: CBPeripheral!
+  var headtrackerDeviceName = "---"
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    locationManager = CLLocationManager()
+    locationManager.requestWhenInUseAuthorization()
  
     centralManager = CBCentralManager(delegate: self, queue: nil)
     deviceNameTextField.backgroundColor = UIColor.white
@@ -89,7 +94,6 @@ class MainViewController: UIViewController {
   func onHeadtrackingReceived(_ orientation: String) {
     let delimiter = " "
     let token = orientation.components(separatedBy: delimiter)
-//    print(token.count)
     if  token.count == 3 {
       let yaw = String(token[0])
       let pitch = String(token[1])
@@ -99,7 +103,7 @@ class MainViewController: UIViewController {
       pitchTextField.text = "\(pitch)°"
       linAccelZTextField.text = "\(linAccelZ)"
     } else {
-      print("onHeadtrackingReceived: Data format does not fit (!=3)")
+      print("onHeadtrackingReceived: Data format does not fit (\(token.count)!=3)")
     }
   }
 }
@@ -144,13 +148,15 @@ extension MainViewController: CBCentralManagerDelegate {
     print(String("Peripheral discovered: \(peripheral.name ?? "unknown")"))
     // You can change this to check for UUID from security reasons
     // TODO: No hard coded device name here
-    let found: Bool = peripheral.name?.isEqualToString(find: headtrackerDeviceName) ?? false
+    //let found: Bool = peripheral.name?.isEqualToString(find: headtrackerDeviceName) ?? false
+    let found: Bool = peripheral.name?.starts(with: deviceNamePrefix) ?? false
     if (found) {
-        headTrackerPeripheral = peripheral
-        headTrackerPeripheral.delegate = self
-        centralManager.stopScan()
-        central.connect(headTrackerPeripheral)
-        deviceNameTextField.text = headtrackerDeviceName
+      headTrackerPeripheral = peripheral
+      headTrackerPeripheral.delegate = self
+      centralManager.stopScan()
+      central.connect(headTrackerPeripheral)
+      headtrackerDeviceName = peripheral.name!
+      deviceNameTextField.text = headtrackerDeviceName
     }
     
   }
@@ -237,7 +243,7 @@ extension MainViewController: CBPeripheralDelegate {
 
 
 
-
+// Mark:- String extension(s)
 
 // Compare two Strings
 extension String {

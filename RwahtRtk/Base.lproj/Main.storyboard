@@ -29,7 +29,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMj-xj-Wqy">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMj-xj-Wqy">
                                                 <rect key="frame" x="85.5" y="0.0" width="205.5" height="142"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -119,7 +119,7 @@
                         <outlet property="deviceNameTextField" destination="CMj-xj-Wqy" id="nSI-d4-8c8"/>
                         <outlet property="linAccelZLabel" destination="U4L-qf-8Qp" id="bda-la-B77"/>
                         <outlet property="linAccelZTextField" destination="Way-Xs-p14" id="wzk-9S-fLW"/>
-                        <outlet property="mainMapView" destination="FJM-BV-U0N" id="qUS-qq-a1Q"/>
+                        <outlet property="mapView" destination="FJM-BV-U0N" id="qUS-qq-a1Q"/>
                         <outlet property="pitchLabel" destination="hl7-ZO-ljo" id="K62-WF-0Sh"/>
                         <outlet property="pitchTextField" destination="FKx-Zn-396" id="4Ky-jg-40h"/>
                         <outlet property="yawLabel" destination="Ho2-h2-WBf" id="T8k-VL-vRn"/>
