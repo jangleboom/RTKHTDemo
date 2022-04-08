@@ -12,14 +12,14 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="headtracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="jji-On-ewZ">
-                                <rect key="frame" x="42" y="30" width="291" height="286"/>
+                                <rect key="frame" x="40" y="20" width="291" height="286"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="90" id="E2K-BD-Gn8">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="E2K-BD-Gn8">
                                         <rect key="frame" x="0.0" y="0.0" width="291" height="142"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
@@ -30,7 +30,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMj-xj-Wqy">
-                                                <rect key="frame" x="125.5" y="0.0" width="165.5" height="142"/>
+                                                <rect key="frame" x="85.5" y="0.0" width="205.5" height="142"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -48,10 +48,10 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U3I-ww-Jc6">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U3I-ww-Jc6">
                                                 <rect key="frame" x="85.5" y="0.0" width="205.5" height="34"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
@@ -67,10 +67,10 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FKx-Zn-396">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FKx-Zn-396">
                                                 <rect key="frame" x="85.5" y="0.0" width="205.5" height="34"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
@@ -86,10 +86,10 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Way-Xs-p14">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Way-Xs-p14">
                                                 <rect key="frame" x="85.5" y="0.0" width="205.5" height="34"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
@@ -97,8 +97,8 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJM-BV-U0N">
-                                <rect key="frame" x="0.0" y="336" width="375" height="287"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJM-BV-U0N">
+                                <rect key="frame" x="0.0" y="326" width="375" height="297"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -106,9 +106,11 @@
                         <constraints>
                             <constraint firstItem="FJM-BV-U0N" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0h4-OY-bjk"/>
                             <constraint firstItem="FJM-BV-U0N" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="CTP-J3-JrO"/>
+                            <constraint firstItem="jji-On-ewZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="L11-32-E28"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jji-On-ewZ" secondAttribute="trailing" constant="40" id="N92-GB-lB7"/>
+                            <constraint firstItem="FJM-BV-U0N" firstAttribute="top" secondItem="jji-On-ewZ" secondAttribute="bottom" constant="20" id="Yns-1l-kIW"/>
                             <constraint firstItem="FJM-BV-U0N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Z4S-du-vwX"/>
-                            <constraint firstItem="jji-On-ewZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="42" id="ei5-nV-PM8"/>
-                            <constraint firstItem="jji-On-ewZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="kz1-zD-0fO"/>
+                            <constraint firstItem="jji-On-ewZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="bGB-Dd-1fl"/>
                             <constraint firstItem="FJM-BV-U0N" firstAttribute="top" secondItem="jji-On-ewZ" secondAttribute="bottom" constant="20" id="pIF-Az-1YZ"/>
                         </constraints>
                     </view>
