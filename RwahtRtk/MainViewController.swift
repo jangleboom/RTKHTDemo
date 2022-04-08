@@ -53,33 +53,17 @@ class MainViewController: UIViewController, MKMapViewDelegate, CLLocationManager
   let deviceNamePrefix = "HTRTK_"
   var centralManager: CBCentralManager!
   var headTrackerPeripheral: CBPeripheral!
-  var headtrackerDeviceName = "---"
-  
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    locationManager = CLLocationManager()
-    locationManager.requestWhenInUseAuthorization()
- 
-    centralManager = CBCentralManager(delegate: self, queue: nil)
-    deviceNameTextField.backgroundColor = UIColor.white
-    deviceNameTextField.textColor = UIColor.blue
-    deviceNameTextField.borderStyle = .none
-    deviceNameTextField.text = "not connected"
+  var headtrackerDeviceName = ""
+  func setupUI() {
     yawTextField.backgroundColor = UIColor.white
     yawTextField.textColor = UIColor.blue
     yawTextField.borderStyle = .none
-    yawTextField.text = "---"
     pitchTextField.backgroundColor = UIColor.white
     pitchTextField.textColor = UIColor.blue
     pitchTextField.borderStyle = .none
-    pitchTextField.text = "---"
     linAccelZTextField.backgroundColor = UIColor.white
     linAccelZTextField.textColor = UIColor.blue
     linAccelZTextField.borderStyle = .none
-    linAccelZTextField.text = "---"
-    
     deviceNameLabel.textColor = UIColor.black
     deviceNameLabel.text = "Device"
     yawLabel.textColor = UIColor.black
@@ -88,6 +72,28 @@ class MainViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     pitchLabel.text = "Pitch"
     linAccelZLabel.textColor = UIColor.black
     linAccelZLabel.text = "Lin. Accel. Z"
+  }
+  
+  func setUIDefaultValues() {
+    yawTextField.text = "---"
+    deviceNameTextField.text = "Disconneced"
+    pitchTextField.text = "---"
+    linAccelZTextField.text = "---"
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setupUI()
+    setUIDefaultValues()
+    locationManager = CLLocationManager()
+    locationManager.requestWhenInUseAuthorization()
+ 
+    centralManager = CBCentralManager(delegate: self, queue: nil)
+    deviceNameTextField.backgroundColor = UIColor.white
+    deviceNameTextField.textColor = UIColor.blue
+    deviceNameTextField.borderStyle = .none
+    
+
   }
  
   
@@ -114,20 +120,30 @@ extension MainViewController: CBCentralManagerDelegate {
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     switch central.state {
       
-    case .unknown:
+      case .unknown:
       print("central.state is .unknown")
+      setUIDefaultValues()
+      deviceNameTextField.text = "BLE unknown"
       break
     case .resetting:
       print("central.state is .resetting")
+      setUIDefaultValues()
+      deviceNameTextField.text = "BLE resetting"
       break
     case .unsupported:
       print("central.state is .unsupported")
+      deviceNameTextField.text = "BLE unsupported"
+      setUIDefaultValues()
       break
     case .unauthorized:
       print("central.state is .unauthorized")
+      setUIDefaultValues()
+      deviceNameTextField.text = "BLE unauthorized"
       break
     case .poweredOff:
       print("central.state is .poweredOff")
+      setUIDefaultValues()
+      deviceNameTextField.text = "BLE powered off"
       break
     case .poweredOn:
       print("central.state is .poweredOn")
@@ -137,6 +153,8 @@ extension MainViewController: CBCentralManagerDelegate {
     
     @unknown default:
       print("centralManagerDidUpdateState - Action needed: Handle unknown default")
+      setUIDefaultValues()
+      deviceNameTextField.text = "BLE unknown default"
       break
     }
   }
@@ -169,6 +187,7 @@ extension MainViewController: CBCentralManagerDelegate {
   }
   
   func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+    setUIDefaultValues()
     print("Disconneced! Start scanning again...")
     centralManager.scanForPeripherals(withServices: [headTrackerServiceCBUUID], options: nil)
   }
