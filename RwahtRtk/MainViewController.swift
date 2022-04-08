@@ -35,7 +35,7 @@ import CoreLocation
 
 
 
-class MainViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MainViewController: UIViewController {
  
   @IBOutlet weak var deviceNameTextField: UITextField!
   @IBOutlet weak var yawTextField: UITextField!
@@ -54,6 +54,7 @@ class MainViewController: UIViewController, MKMapViewDelegate, CLLocationManager
   var centralManager: CBCentralManager!
   var headTrackerPeripheral: CBPeripheral!
   var headtrackerDeviceName = ""
+  
   func setupUI() {
     yawTextField.backgroundColor = UIColor.white
     yawTextField.textColor = UIColor.blue
@@ -86,16 +87,30 @@ class MainViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     setupUI()
     setUIDefaultValues()
     locationManager = CLLocationManager()
-    locationManager.requestWhenInUseAuthorization()
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    
+    // Check for Location Services
+    if (CLLocationManager.locationServicesEnabled()) {
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    locationManager.startUpdatingLocation()
+    locationManager.startUpdatingHeading()
+    mapView.isRotateEnabled = false
+    mapView.setUserTrackingMode(.followWithHeading, animated: false)
+    mapView.showsUserLocation = true
+    
  
     centralManager = CBCentralManager(delegate: self, queue: nil)
     deviceNameTextField.backgroundColor = UIColor.white
     deviceNameTextField.textColor = UIColor.blue
     deviceNameTextField.borderStyle = .none
-    
 
   }
  
+
   
   func onHeadtrackingReceived(_ orientation: String) {
     let delimiter = " "
@@ -113,7 +128,6 @@ class MainViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
   }
 }
-
 
 
 extension MainViewController: CBCentralManagerDelegate {
@@ -160,13 +174,9 @@ extension MainViewController: CBCentralManagerDelegate {
   }
   
 
-  
-  
   func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
     print(String("Peripheral discovered: \(peripheral.name ?? "unknown")"))
     // You can change this to check for UUID from security reasons
-    // TODO: No hard coded device name here
-    //let found: Bool = peripheral.name?.isEqualToString(find: headtrackerDeviceName) ?? false
     let found: Bool = peripheral.name?.starts(with: deviceNamePrefix) ?? false
     if (found) {
       headTrackerPeripheral = peripheral
@@ -256,8 +266,6 @@ extension MainViewController: CBPeripheralDelegate {
 //    print(packetStr)
       return  packetStr
   }
-  
-  
 }
 
 
@@ -270,4 +278,46 @@ extension String {
   func isEqualToString(find: String) -> Bool {
     return String(format: self) == find
   }
+}
+
+
+extension MainViewController: CLLocationManagerDelegate {
+    
+    // iOS 14
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if #available(iOS 14.0, *) {
+            switch manager.authorizationStatus {
+            case .notDetermined:
+                print("Not determined")
+            case .restricted:
+                print("Restricted")
+            case .denied:
+                print("Denied")
+            case .authorizedAlways:
+                print("Authorized Always")
+            case .authorizedWhenInUse:
+                print("Authorized When in Use")
+            @unknown default:
+                print("Unknown status")
+            }
+        }
+    }
+    
+    // iOS 13 and below
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            print("Not determined")
+        case .restricted:
+            print("Restricted")
+        case .denied:
+            print("Denied")
+        case .authorizedAlways:
+            print("Authorized Always")
+        case .authorizedWhenInUse:
+            print("Authorized When in Use")
+        @unknown default:
+            print("Unknown status")
+        }
+    }
 }

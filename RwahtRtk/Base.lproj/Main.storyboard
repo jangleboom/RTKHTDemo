@@ -97,7 +97,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="FJM-BV-U0N">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJM-BV-U0N">
                                 <rect key="frame" x="42" y="336" width="291" height="257"/>
                             </mapView>
                         </subviews>
