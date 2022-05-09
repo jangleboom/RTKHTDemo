@@ -28,6 +28,8 @@
  * THE SOFTWARE.
  */
 
+// TODO: Instead of NamePrefix only use parts of the SSID from personal AP as e. g. suffix for headtracker device name. Make sure that the right one is connected to the mobile phone
+
 import UIKit
 import CoreBluetooth
 import MapKit
@@ -50,7 +52,7 @@ class MainViewController: UIViewController {
   var locationManager: CLLocationManager!
   let headTrackerServiceCBUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
   let headTrackerMeasurementCharacteristicCBUUID = CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
-  let deviceNamePrefix = "HTRTK_"
+  let deviceNamePrefix = "RTKRover_"
   var centralManager: CBCentralManager!
   var headTrackerPeripheral: CBPeripheral!
   var headtrackerDeviceName = ""
@@ -72,7 +74,7 @@ class MainViewController: UIViewController {
     pitchLabel.textColor = UIColor.black
     pitchLabel.text = "Pitch"
     linAccelZLabel.textColor = UIColor.black
-    linAccelZLabel.text = "Lin. Accel. Z"
+    linAccelZLabel.text = "LinAccelZ"
   }
   
   func setUIDefaultValues() {

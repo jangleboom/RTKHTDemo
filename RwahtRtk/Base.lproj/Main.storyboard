@@ -37,6 +37,9 @@
                                             </textField>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="ozg-hw-WGr"/>
+                                        <constraints>
+                                            <constraint firstItem="CMj-xj-Wqy" firstAttribute="leading" secondItem="8QX-07-WY0" secondAttribute="trailing" constant="10" id="VoN-dQ-bh6"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="0wC-0a-AWt">
                                         <rect key="frame" x="0.0" y="174" width="291" height="34"/>
