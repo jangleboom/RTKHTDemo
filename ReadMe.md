@@ -6,8 +6,8 @@
 <!--![plot](./Screenshots/HeadtrackerMonitor1.png)-->
 <!--![plot](./Screenshots/HeadtrackerMonitor2.png)-->
 
-<img src="./Screenshots/HeadtrackerMonitor1.png" width="425"/> 
-<img src="./Screenshots/HeadtrackerMonitor2.png" width="425"/> 
-<img src="./Screenshots/HeadtrackerMonitor3.png" width="425"/> 
+<img src="./Screenshots/HeadtrackerMonitor1.png" width="320"/> 
+<img src="./Screenshots/HeadtrackerMonitor2.png" width="320"/> 
+<img src="./Screenshots/HeadtrackerMonitor3.png" width="320"/> 
 
 
