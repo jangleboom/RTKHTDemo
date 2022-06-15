@@ -51,11 +51,15 @@ class MainViewController: UIViewController {
   
   var locationManager: CLLocationManager!
   let headTrackerServiceCBUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
-  let headTrackerMeasurementCharacteristicCBUUID = CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
+  let headTrackerCharacteristicCBUUID = CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
+  let realTimeKinematicsCharacteristicCBUUID = CBUUID(string: "713D0004-503E-4C75-BA94-3148F18D941E")
+  let rtkAccuracyCharacteristicCBUUID = CBUUID(string: "713D0006-503E-4C75-BA94-3148F18D941E")
   let deviceNamePrefix = "RTKRover_"
   var centralManager: CBCentralManager!
   var headTrackerPeripheral: CBPeripheral!
   var headtrackerDeviceName = ""
+  var rtkPositionAnnotation = MKPointAnnotation()
+  let regionRadius: CLLocationDistance = 25
   
   func setupUI() {
     yawTextField.backgroundColor = UIColor.white
@@ -91,6 +95,8 @@ class MainViewController: UIViewController {
     locationManager = CLLocationManager()
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    rtkPositionAnnotation.title = "RTK"
+    rtkPositionAnnotation.subtitle = ""
     
     // Check for Location Services
     if (CLLocationManager.locationServicesEnabled()) {
@@ -100,6 +106,7 @@ class MainViewController: UIViewController {
     
     locationManager.startUpdatingLocation()
     locationManager.startUpdatingHeading()
+    mapView.mapType = MKMapType.satellite//Flyover
     mapView.isRotateEnabled = false
     mapView.setUserTrackingMode(.followWithHeading, animated: false)
     mapView.showsUserLocation = true
@@ -112,7 +119,12 @@ class MainViewController: UIViewController {
 
   }
  
-
+  func centerMapOnLocation(location: CLLocation)
+  {
+    let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
+                                              latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
+      mapView.setRegion(coordinateRegion, animated: true)
+  }
   
   func onHeadtrackingReceived(_ orientation: String) {
     let delimiter = " "
@@ -129,8 +141,38 @@ class MainViewController: UIViewController {
       print("onHeadtrackingReceived: Data format does not fit (\(token.count)!=3)")
     }
   }
+
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+    print("didReceiveMemoryWarning")
+  }
+  
+func onRealtimeKinematicsReceived(_ position: String) {
+  let delimiter = ","
+  let token = position.components(separatedBy: delimiter)
+  if  token.count == 2 {
+    let latitude = (token[0] as NSString).doubleValue * pow(10, -7)
+    let longitude = (token[1]as NSString).doubleValue * pow(10, -7)
+    let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    print("RTK, Latitude: \(locationCoord.latitude), Longitude: \(locationCoord.longitude)")
+    let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
+    centerMapOnLocation(location: location)
+    rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
+    mapView.addAnnotation(rtkPositionAnnotation)
+
+  } else {
+    print("onRealtimeKinematicsReceived: Data format does not fit (\(token.count)!=2)")
+  }
 }
 
+func onRTKAccuracyReceived(_ accuracy: String) {
+  let rtkAccuracy = (accuracy as NSString).integerValue
+  print("RTK accuracy: \(rtkAccuracy) mm")
+  rtkPositionAnnotation.subtitle = "Accuracy: " + String(rtkAccuracy) + " mm"
+}
+
+}
 
 extension MainViewController: CBCentralManagerDelegate {
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -246,15 +288,32 @@ extension MainViewController: CBPeripheralDelegate {
                   error: Error?) {
     switch characteristic.uuid {
       
-      case headTrackerMeasurementCharacteristicCBUUID:
+      case headTrackerCharacteristicCBUUID:
         let orientationString = orientationData(from: characteristic)
         onHeadtrackingReceived(orientationString)
-        
+      case realTimeKinematicsCharacteristicCBUUID:
+        let positionString = positionData(from: characteristic)
+        onRealtimeKinematicsReceived(positionString)
+      case rtkAccuracyCharacteristicCBUUID:
+        let accuracyString = positionAccuracy(from: characteristic)
+        onRTKAccuracyReceived(accuracyString)
+          
       default:
         print("Unhandled Characteristic UUID: \(characteristic.uuid)")
       }
   }
   
+  // TODO: one func is enough
+  private func positionData(from characteristic: CBCharacteristic) -> String {
+    guard let characteristicData = characteristic.value else { return "" }
+    let byteArray = [UInt8](characteristicData)
+    var packetStr = ""
+    for u in byteArray {
+      let char = Character(UnicodeScalar(u))
+      packetStr.append(char)
+    }
+      return  packetStr
+  }
   
   private func orientationData(from characteristic: CBCharacteristic) -> String {
     guard let characteristicData = characteristic.value else { return "" }
@@ -266,6 +325,17 @@ extension MainViewController: CBPeripheralDelegate {
       packetStr.append(char)
     }
 //    print(packetStr)
+      return  packetStr
+  }
+  
+  private func positionAccuracy(from characteristic: CBCharacteristic) -> String {
+    guard let characteristicData = characteristic.value else { return "" }
+    let byteArray = [UInt8](characteristicData)
+    var packetStr = ""
+    for u in byteArray {
+      let char = Character(UnicodeScalar(u))
+      packetStr.append(char)
+    }
       return  packetStr
   }
 }
