@@ -1,1 +1,1 @@
-![plot](./Screenshots/HeadtrackerMonitor.jpg)
+![plot](./Screenshots/HeadtrackerMonitor.png)
