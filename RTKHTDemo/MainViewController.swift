@@ -40,6 +40,7 @@ import CoreLocation
 
 class MainViewController: UIViewController {
  
+
   @IBOutlet weak var deviceNameTextField: UITextField!
   @IBOutlet weak var yawTextField: UITextField!
   @IBOutlet weak var pitchTextField: UITextField!
@@ -49,6 +50,7 @@ class MainViewController: UIViewController {
   @IBOutlet weak var pitchLabel: UILabel!
   @IBOutlet weak var linAccelZLabel: UILabel!
   @IBOutlet weak var mapView: MKMapView!
+
   
   var locationManager: CLLocationManager!
   let headTrackerServiceCBUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
@@ -63,6 +65,7 @@ class MainViewController: UIViewController {
   let regionRadius: CLLocationDistance = 25
   
   func setupUI() {
+    navigationController?.navigationBar.barTintColor = UIColor.green
     yawTextField.backgroundColor = UIColor.white
     yawTextField.textColor = UIColor.blue
     yawTextField.borderStyle = .none

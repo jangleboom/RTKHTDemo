@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5C03606B1FB90013007BC593 /* headtracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = headtracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C03606B1FB90013007BC593 /* RTKHTDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RTKHTDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C03606E1FB90013007BC593 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C0360701FB90013007BC593 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5C0360731FB90013007BC593 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		5C03606C1FB90013007BC593 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5C03606B1FB90013007BC593 /* headtracker.app */,
+				5C03606B1FB90013007BC593 /* RTKHTDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,7 +99,7 @@
 			);
 			name = RTKHTDemo;
 			productName = HeartRateMonitor;
-			productReference = 5C03606B1FB90013007BC593 /* headtracker.app */;
+			productReference = 5C03606B1FB90013007BC593 /* RTKHTDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -304,7 +304,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/RTKHTDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RTKHTDemo;
-				PRODUCT_NAME = headtracker;
+				PRODUCT_NAME = RTKHTDemo;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -319,7 +319,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/RTKHTDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RTKHTDemo;
-				PRODUCT_NAME = headtracker;
+				PRODUCT_NAME = RTKHTDemo;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

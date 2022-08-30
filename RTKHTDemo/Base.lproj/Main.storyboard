@@ -11,7 +11,7 @@
         <!--Headtracker Monitor-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="headtracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="RTKHTDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -123,6 +123,7 @@
                         <outlet property="linAccelZLabel" destination="U4L-qf-8Qp" id="bda-la-B77"/>
                         <outlet property="linAccelZTextField" destination="Way-Xs-p14" id="wzk-9S-fLW"/>
                         <outlet property="mapView" destination="FJM-BV-U0N" id="qUS-qq-a1Q"/>
+                        <outlet property="navigationItem" destination="oM9-J4-V4h" id="7xO-yT-h6x"/>
                         <outlet property="pitchLabel" destination="hl7-ZO-ljo" id="K62-WF-0Sh"/>
                         <outlet property="pitchTextField" destination="FKx-Zn-396" id="4Ky-jg-40h"/>
                         <outlet property="yawLabel" destination="Ho2-h2-WBf" id="T8k-VL-vRn"/>
@@ -138,10 +139,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="at3-GX-HDu" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="WF6-kh-Vtd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="WF6-kh-Vtd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.70281273126602173" green="0.16885849833488464" blue="0.16065183281898499" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="barTintColor" red="0.23405779253866252" green="0.46845869203284174" blue="0.8697207790814433" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
