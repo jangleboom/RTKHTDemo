@@ -44,7 +44,7 @@
 		5C0360621FB90013007BC593 = {
 			isa = PBXGroup;
 			children = (
-				5C03606D1FB90013007BC593 /* RwahtRtk */,
+				5C03606D1FB90013007BC593 /* RTKHTDemo */,
 				5C03606C1FB90013007BC593 /* Products */,
 				AC7770392800445100AD688F /* Frameworks */,
 			);
@@ -60,7 +60,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5C03606D1FB90013007BC593 /* RwahtRtk */ = {
+		5C03606D1FB90013007BC593 /* RTKHTDemo */ = {
 			isa = PBXGroup;
 			children = (
 				5C03606E1FB90013007BC593 /* AppDelegate.swift */,
@@ -70,7 +70,7 @@
 				5C0360771FB90013007BC593 /* LaunchScreen.storyboard */,
 				5C03607A1FB90013007BC593 /* Info.plist */,
 			);
-			path = RwahtRtk;
+			path = RTKHTDemo;
 			sourceTree = "<group>";
 		};
 		AC7770392800445100AD688F /* Frameworks */ = {
@@ -85,9 +85,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5C03606A1FB90013007BC593 /* RwahtRtk */ = {
+		5C03606A1FB90013007BC593 /* RTKHTDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5C03607D1FB90013007BC593 /* Build configuration list for PBXNativeTarget "RwahtRtk" */;
+			buildConfigurationList = 5C03607D1FB90013007BC593 /* Build configuration list for PBXNativeTarget "RTKHTDemo" */;
 			buildPhases = (
 				5C0360671FB90013007BC593 /* Sources */,
 				5C0360681FB90013007BC593 /* Frameworks */,
@@ -97,7 +97,7 @@
 			);
 			dependencies = (
 			);
-			name = RwahtRtk;
+			name = RTKHTDemo;
 			productName = HeartRateMonitor;
 			productReference = 5C03606B1FB90013007BC593 /* headtracker.app */;
 			productType = "com.apple.product-type.application";
@@ -132,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5C03606A1FB90013007BC593 /* RwahtRtk */,
+				5C03606A1FB90013007BC593 /* RTKHTDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -301,9 +301,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JQK8VU2G3P;
-				INFOPLIST_FILE = "$(SRCROOT)/RwahtRtk/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/RTKHTDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RwahtRtk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RTKHTDemo;
 				PRODUCT_NAME = headtracker;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -316,9 +316,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JQK8VU2G3P;
-				INFOPLIST_FILE = "$(SRCROOT)/RwahtRtk/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/RTKHTDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RwahtRtk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.markuese.mr.RTKHTDemo;
 				PRODUCT_NAME = headtracker;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -337,7 +337,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5C03607D1FB90013007BC593 /* Build configuration list for PBXNativeTarget "RwahtRtk" */ = {
+		5C03607D1FB90013007BC593 /* Build configuration list for PBXNativeTarget "RTKHTDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C03607E1FB90013007BC593 /* Debug */,
