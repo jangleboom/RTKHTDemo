@@ -17,7 +17,7 @@
                BlueprintIdentifier = "5C03606A1FB90013007BC593"
                BuildableName = "headtracker.app"
                BlueprintName = "RwahtRtk"
-               ReferencedContainer = "container:RwahtRtk.xcodeproj">
+               ReferencedContainer = "container:RTKHTDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "5C03606A1FB90013007BC593"
             BuildableName = "headtracker.app"
             BlueprintName = "RwahtRtk"
-            ReferencedContainer = "container:RwahtRtk.xcodeproj">
+            ReferencedContainer = "container:RTKHTDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "5C03606A1FB90013007BC593"
             BuildableName = "headtracker.app"
             BlueprintName = "RwahtRtk"
-            ReferencedContainer = "container:RwahtRtk.xcodeproj">
+            ReferencedContainer = "container:RTKHTDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

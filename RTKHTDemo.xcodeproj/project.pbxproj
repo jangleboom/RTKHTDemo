@@ -119,7 +119,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5C0360661FB90013007BC593 /* Build configuration list for PBXProject "RwahtRtk" */;
+			buildConfigurationList = 5C0360661FB90013007BC593 /* Build configuration list for PBXProject "RTKHTDemo" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -328,7 +328,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5C0360661FB90013007BC593 /* Build configuration list for PBXProject "RwahtRtk" */ = {
+		5C0360661FB90013007BC593 /* Build configuration list for PBXProject "RTKHTDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C03607B1FB90013007BC593 /* Debug */,

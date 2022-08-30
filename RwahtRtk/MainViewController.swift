@@ -29,6 +29,7 @@
  */
 
 // TODO: Instead of NamePrefix only use parts of the SSID from personal AP as e. g. suffix for headtracker device name. Make sure that the right one is connected to the mobile phone
+// TODO: Delete RTK annotation if stale and outdated, or accuracy is too bad,
 
 import UIKit
 import CoreBluetooth
@@ -108,10 +109,9 @@ class MainViewController: UIViewController {
     locationManager.startUpdatingHeading()
     mapView.mapType = MKMapType.satellite//Flyover
     mapView.isRotateEnabled = false
-    mapView.setUserTrackingMode(.followWithHeading, animated: false)
+    //mapView.setUserTrackingMode(.followWithHeading, animated: false)
     mapView.showsUserLocation = true
     
- 
     centralManager = CBCentralManager(delegate: self, queue: nil)
     deviceNameTextField.backgroundColor = UIColor.white
     deviceNameTextField.textColor = UIColor.blue
@@ -123,7 +123,7 @@ class MainViewController: UIViewController {
   {
     let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                               latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
-      mapView.setRegion(coordinateRegion, animated: true)
+      mapView.setRegion(coordinateRegion, animated: false)
   }
   
   func onHeadtrackingReceived(_ orientation: String) {
@@ -142,7 +142,7 @@ class MainViewController: UIViewController {
     }
   }
 
-  override func didReceiveMemoryWarning() {
+override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
     print("didReceiveMemoryWarning")
