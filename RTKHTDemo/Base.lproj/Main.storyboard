@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Headtracker Monitor-->
+        <!--Real Time Kinematics & Headtracking-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="RTKHTDemo" customModuleProvider="target" sceneMemberID="viewController">
@@ -116,7 +116,7 @@
                             <constraint firstItem="jji-On-ewZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="wjW-TW-vw6"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Headtracker Monitor" id="oM9-J4-V4h"/>
+                    <navigationItem key="navigationItem" title="Real Time Kinematics &amp; Headtracking" id="oM9-J4-V4h"/>
                     <connections>
                         <outlet property="deviceNameLabel" destination="8QX-07-WY0" id="NmN-06-Vez"/>
                         <outlet property="deviceNameTextField" destination="CMj-xj-Wqy" id="nSI-d4-8c8"/>
