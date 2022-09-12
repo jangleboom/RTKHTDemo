@@ -165,6 +165,7 @@ func onRealtimeKinematicsReceived(_ position: String) {
     mapView.addAnnotation(rtkPositionAnnotation)
 
   } else {
+    mapView.removeAnnotation(rtkPositionAnnotation)
     print("onRealtimeKinematicsReceived: Data format does not fit (\(token.count)!=2)")
   }
 }
@@ -185,11 +186,13 @@ extension MainViewController: CBCentralManagerDelegate {
       print("central.state is .unknown")
       setUIDefaultValues()
       deviceNameTextField.text = "BLE unknown"
+      mapView.removeAnnotation(rtkPositionAnnotation)
       break
     case .resetting:
       print("central.state is .resetting")
       setUIDefaultValues()
       deviceNameTextField.text = "BLE resetting"
+      mapView.removeAnnotation(rtkPositionAnnotation)
       break
     case .unsupported:
       print("central.state is .unsupported")
@@ -205,6 +208,7 @@ extension MainViewController: CBCentralManagerDelegate {
       print("central.state is .poweredOff")
       setUIDefaultValues()
       deviceNameTextField.text = "BLE powered off"
+      mapView.removeAnnotation(rtkPositionAnnotation)
       break
     case .poweredOn:
       print("central.state is .poweredOn")
@@ -246,6 +250,7 @@ extension MainViewController: CBCentralManagerDelegate {
   func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
     setUIDefaultValues()
     print("Disconneced! Start scanning again...")
+    mapView.removeAnnotation(rtkPositionAnnotation)
     centralManager.scanForPeripherals(withServices: [headTrackerServiceCBUUID], options: nil)
   }
   
