@@ -190,19 +190,39 @@ override func didReceiveMemoryWarning() {
 func onRealtimeKinematicsReceived(_ position: String) {
   let delimiter = ","
   let token = position.components(separatedBy: delimiter)
-  if  token.count == 2 {
-    let latitude = (token[0] as NSString).doubleValue * pow(10, -7)
-    let longitude = (token[1]as NSString).doubleValue * pow(10, -7)
+//  if  token.count == 2 { // Receiving mm precision values
+//    let latitude = (token[0] as NSString).doubleValue * pow(10, -7)
+//    let longitude = (token[1]as NSString).doubleValue * pow(10, -7)
+//    let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//    print("RTK, Latitude: \(locationCoord.latitude), Longitude: \(locationCoord.longitude)")
+//    let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
+//    centerMapOnLocation(location: location)
+//    rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
+//    mapView.addAnnotation(rtkPositionAnnotation)
+//
+//  }
+  if  token.count == 4 { // Sending high precision values (1/mm)
+    let lat = (token[0] as NSString).doubleValue * pow(10, -7)
+//    print("token[0]: \(token[0])")
+    let latHp = (token[1] as NSString).doubleValue * pow(10, -9)
+//    print("token[1]: \(token[1])")
+    let latitude = lat + latHp
+    let lon = (token[2] as NSString).doubleValue * pow(10, -7)
+    let lonHp = (token[3] as NSString).doubleValue * pow(10, -9)
+    print(String(format: "lat: %.7f", lat), String(format: "latHp: %.9f", latHp))
+    print(String(format: "lon: %.7f", lon), String(format: "lonHp: %.9f", lonHp))
+
+    let longitude = lon + lonHp
     let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    print("RTK, Latitude: \(locationCoord.latitude), Longitude: \(locationCoord.longitude)")
+    print(String(format: "RTK, Latitude: %.9f, Longitude: %.9f", locationCoord.latitude, locationCoord.longitude))
     let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
     centerMapOnLocation(location: location)
     rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
     mapView.addAnnotation(rtkPositionAnnotation)
-
-  } else {
+  }
+  else {
     mapView.removeAnnotation(rtkPositionAnnotation)
-    print("onRealtimeKinematicsReceived: Data format does not fit (\(token.count)!=2)")
+    print("onRealtimeKinematicsReceived: Data format does not fit (\(token.count)!=4)")
   }
 }
 
