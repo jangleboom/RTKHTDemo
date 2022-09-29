@@ -28,9 +28,6 @@
  * THE SOFTWARE.
  */
 
-// TODO: Instead of NamePrefix only use parts of the SSID from personal AP as e. g. suffix for headtracker device name. Make sure that the right one is connected to the mobile phone
-// TODO: Delete RTK annotation if stale and outdated, or accuracy is too bad,
-
 import UIKit
 import CoreBluetooth
 import MapKit
@@ -38,7 +35,8 @@ import CoreLocation
 
 
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController
+{
  
 
   @IBOutlet weak var deviceNameTextField: UITextField!
@@ -63,6 +61,7 @@ class MainViewController: UIViewController {
   var headtrackerDeviceName = ""
   var rtkPositionAnnotation = MKPointAnnotation()
   let regionRadius: CLLocationDistance = 25
+  let delimiter = ","
   
 /**
         For later: Function to get the IP address of devices in  lan
@@ -98,7 +97,8 @@ class MainViewController: UIViewController {
 //  }
 
   
-  func setupUI() {
+  func setupUI()
+  {
     navigationController?.navigationBar.barTintColor = UIColor.green
     yawTextField.backgroundColor = UIColor.white
     yawTextField.textColor = UIColor.blue
@@ -119,14 +119,16 @@ class MainViewController: UIViewController {
     linAccelZLabel.text = "LinAccelZ"
   }
   
-  func setUIDefaultValues() {
+  func setUIDefaultValues()
+  {
     yawTextField.text = "---"
     deviceNameTextField.text = "Disconneced"
     pitchTextField.text = "---"
     linAccelZTextField.text = "---"
   }
   
-  override func viewDidLoad() {
+  override func viewDidLoad()
+  {
     super.viewDidLoad()
     setupUI()
     setUIDefaultValues()
@@ -137,9 +139,10 @@ class MainViewController: UIViewController {
     rtkPositionAnnotation.subtitle = ""
     
     // Check for Location Services
-    if (CLLocationManager.locationServicesEnabled()) {
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
+    if (CLLocationManager.locationServicesEnabled())
+    {
+      locationManager.requestAlwaysAuthorization()
+      locationManager.requestWhenInUseAuthorization()
     }
     
     locationManager.startUpdatingLocation()
@@ -165,10 +168,11 @@ class MainViewController: UIViewController {
       mapView.setRegion(coordinateRegion, animated: false)
   }
   
-  func onHeadtrackingReceived(_ orientation: String) {
-    let delimiter = " "
+  func onHeadtrackingReceived(_ orientation: String)
+  {
     let token = orientation.components(separatedBy: delimiter)
-    if  token.count == 3 {
+    if  token.count == 3
+    {
       let yaw = String(token[0])
       let pitch = String(token[1])
       let linAccelZ = ((token[2] as NSString).floatValue < 0) ? String(token[2]) : (" " + String(token[2]))
@@ -176,21 +180,25 @@ class MainViewController: UIViewController {
       yawTextField.text = "\(yaw)°"
       pitchTextField.text = "\(pitch)°"
       linAccelZTextField.text = "\(linAccelZ)"
-    } else {
+    }
+    else
+    {
       print("onHeadtrackingReceived: Data format does not fit (\(token.count)!=3)")
     }
   }
 
-override func didReceiveMemoryWarning() {
+override func didReceiveMemoryWarning()
+  {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
     print("didReceiveMemoryWarning")
   }
   
-func onRealtimeKinematicsReceived(_ position: String) {
-  let delimiter = ","
-  let token = position.components(separatedBy: delimiter)
-//  if  token.count == 2 { // Receiving mm precision values
+func onRealtimeKinematicsReceived(_ position: String)
+  {
+    let token = position.components(separatedBy: delimiter)
+//  if  token.count == 2
+//    { // Receiving mm precision values
 //    let latitude = (token[0] as NSString).doubleValue * pow(10, -7)
 //    let longitude = (token[1]as NSString).doubleValue * pow(10, -7)
 //    let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -201,42 +209,46 @@ func onRealtimeKinematicsReceived(_ position: String) {
 //    mapView.addAnnotation(rtkPositionAnnotation)
 //
 //  }
-  if  token.count == 4 { // Sending high precision values (1/mm)
-    let lat = (token[0] as NSString).doubleValue * pow(10, -7)
-//    print("token[0]: \(token[0])")
-    let latHp = (token[1] as NSString).doubleValue * pow(10, -9)
-//    print("token[1]: \(token[1])")
-    let latitude = lat + latHp
-    let lon = (token[2] as NSString).doubleValue * pow(10, -7)
-    let lonHp = (token[3] as NSString).doubleValue * pow(10, -9)
-    print(String(format: "lat: %.7f", lat), String(format: "latHp: %.9f", latHp))
-    print(String(format: "lon: %.7f", lon), String(format: "lonHp: %.9f", lonHp))
+    if  token.count == 4
+    { // Sending high precision values (1/mm)
+      let lat = (token[0] as NSString).doubleValue * pow(10, -7)
+      let latHp = (token[1] as NSString).doubleValue * pow(10, -9)
+      let latitude = lat + latHp
+      let lon = (token[2] as NSString).doubleValue * pow(10, -7)
+      let lonHp = (token[3] as NSString).doubleValue * pow(10, -9)
+      print(String(format: "lat: %.7f", lat), String(format: "latHp: %.9f", latHp))
+      print(String(format: "lon: %.7f", lon), String(format: "lonHp: %.9f", lonHp))
 
-    let longitude = lon + lonHp
-    let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    print(String(format: "RTK, Latitude: %.9f, Longitude: %.9f", locationCoord.latitude, locationCoord.longitude))
-    let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
-    centerMapOnLocation(location: location)
-    rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
-    mapView.addAnnotation(rtkPositionAnnotation)
+      let longitude = lon + lonHp
+      let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+      print(String(format: "RTK, Latitude: %.9f, Longitude: %.9f", locationCoord.latitude, locationCoord.longitude))
+      let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
+      centerMapOnLocation(location: location)
+      rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
+      mapView.addAnnotation(rtkPositionAnnotation)
+    }
+    else
+    {
+      mapView.removeAnnotation(rtkPositionAnnotation)
+      print("onRealtimeKinematicsReceived: Data format does not fit (\(token.count)!=4)")
+    }
   }
-  else {
-    mapView.removeAnnotation(rtkPositionAnnotation)
-    print("onRealtimeKinematicsReceived: Data format does not fit (\(token.count)!=4)")
+
+func onRTKAccuracyReceived(_ accuracy: String)
+  {
+    let rtkAccuracy = (accuracy as NSString).integerValue
+    print("RTK accuracy: \(rtkAccuracy) mm")
+    rtkPositionAnnotation.subtitle = "Accuracy: " + String(rtkAccuracy) + " mm"
   }
-}
-
-func onRTKAccuracyReceived(_ accuracy: String) {
-  let rtkAccuracy = (accuracy as NSString).integerValue
-  print("RTK accuracy: \(rtkAccuracy) mm")
-  rtkPositionAnnotation.subtitle = "Accuracy: " + String(rtkAccuracy) + " mm"
-}
 
 }
 
-extension MainViewController: CBCentralManagerDelegate {
-  func centralManagerDidUpdateState(_ central: CBCentralManager) {
-    switch central.state {
+extension MainViewController: CBCentralManagerDelegate
+{
+  func centralManagerDidUpdateState(_ central: CBCentralManager)
+  {
+    switch central.state
+    {
       
       case .unknown:
       print("central.state is .unknown")
@@ -279,13 +291,14 @@ extension MainViewController: CBCentralManagerDelegate {
       break
     }
   }
-  
 
-  func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+  func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber)
+  {
     print(String("Peripheral discovered: \(peripheral.name ?? "unknown")"))
     // You can change this to check for UUID from security reasons
-    let found: Bool = peripheral.name?.starts(with: deviceNamePrefix) ?? false
-    if (found) {
+    // TODO: distinguish between multiple devices: nehotspotconfigurationmanager could check the      the wifi client hostname of the connected device "rtkrover123456" and connect the        to same device over BLE. The nehotspotconfigurationmanager is available with paid        apple devoloper license only.
+    let deviceFound: Bool = peripheral.name?.starts(with: deviceNamePrefix) ?? false
+    if (deviceFound) {
       headTrackerPeripheral = peripheral
       headTrackerPeripheral.delegate = self
       centralManager.stopScan()
@@ -293,17 +306,17 @@ extension MainViewController: CBCentralManagerDelegate {
       headtrackerDeviceName = peripheral.name!
       deviceNameTextField.text = headtrackerDeviceName
     }
-    
   }
-
   
-  func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+  func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral)
+  {
     print("Connected!")
     headTrackerPeripheral.discoverServices([headTrackerServiceCBUUID])
 
   }
   
-  func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+  func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?)
+  {
     setUIDefaultValues()
     print("Disconneced! Start scanning again...")
     mapView.removeAnnotation(rtkPositionAnnotation)
@@ -311,7 +324,6 @@ extension MainViewController: CBCentralManagerDelegate {
   }
   
 }
-
 
 
 extension MainViewController: CBPeripheralDelegate {
@@ -326,49 +338,53 @@ extension MainViewController: CBPeripheralDelegate {
   }
   
   func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService,
-                  error: Error?) {
+                  error: Error?)
+  {
     guard let characteristics = service.characteristics else { return }
     
-    for characteristic in characteristics {
-      print(characteristic)
-      
-      if characteristic.properties.contains(.read) {
+    for characteristic in characteristics
+    {
+      if characteristic.properties.contains(.read)
+      {
         print("\(characteristic.uuid): properties contains .read")
       }
-      if characteristic.properties.contains(.notify) {
+      
+      if characteristic.properties.contains(.notify)
+      {
         print("\(characteristic.uuid): properties contains .notify")
         peripheral.setNotifyValue(true, for: characteristic)
       }
-      if characteristic.properties.contains(.write) {
+      
+      if characteristic.properties.contains(.write)
+      {
         print("\(characteristic.uuid): properties contains .write")
       }
       
       peripheral.readValue(for: characteristic)
-      
     }
   }
   
   func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic,
-                  error: Error?) {
-    switch characteristic.uuid {
-      
+                  error: Error?)
+  {
+    switch characteristic.uuid
+    {
       case headTrackerCharacteristicCBUUID:
         let orientationString = orientationData(from: characteristic)
         onHeadtrackingReceived(orientationString)
       case realTimeKinematicsCharacteristicCBUUID:
-        let positionString = positionData(from: characteristic)
+        let positionString = locationData(from: characteristic)
         onRealtimeKinematicsReceived(positionString)
       case rtkAccuracyCharacteristicCBUUID:
-        let accuracyString = positionAccuracy(from: characteristic)
+        let accuracyString = locationAccuracy(from: characteristic)
         onRTKAccuracyReceived(accuracyString)
           
       default:
         print("Unhandled Characteristic UUID: \(characteristic.uuid)")
-      }
+    }
   }
   
-  // TODO: one func is enough
-  private func positionData(from characteristic: CBCharacteristic) -> String {
+  private func locationData(from characteristic: CBCharacteristic) -> String {
     guard let characteristicData = characteristic.value else { return "" }
     let byteArray = [UInt8](characteristicData)
     var packetStr = ""
@@ -382,17 +398,15 @@ extension MainViewController: CBPeripheralDelegate {
   private func orientationData(from characteristic: CBCharacteristic) -> String {
     guard let characteristicData = characteristic.value else { return "" }
     let byteArray = [UInt8](characteristicData)
-//    print("byteArray: \(byteArray)")
     var packetStr = ""
     for u in byteArray {
       let char = Character(UnicodeScalar(u))
       packetStr.append(char)
     }
-//    print(packetStr)
       return  packetStr
   }
   
-  private func positionAccuracy(from characteristic: CBCharacteristic) -> String {
+  private func locationAccuracy(from characteristic: CBCharacteristic) -> String {
     guard let characteristicData = characteristic.value else { return "" }
     let byteArray = [UInt8](characteristicData)
     var packetStr = ""
