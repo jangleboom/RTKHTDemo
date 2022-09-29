@@ -32,13 +32,16 @@ import UIKit
 import CoreBluetooth
 import MapKit
 import CoreLocation
+import os
 
 
-
+@available(iOS 14.0, *)
 class MainViewController: UIViewController
 {
  
 
+  @IBOutlet weak var distanceLabel: UILabel!
+  @IBOutlet weak var distanceTextField: UITextField!
   @IBOutlet weak var deviceNameTextField: UITextField!
   @IBOutlet weak var yawTextField: UITextField!
   @IBOutlet weak var pitchTextField: UITextField!
@@ -62,9 +65,12 @@ class MainViewController: UIViewController
   var rtkPositionAnnotation = MKPointAnnotation()
   let regionRadius: CLLocationDistance = 25
   let delimiter = ","
-  
+  let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "RTKHTDemo", category: "testing")
+
+ 
 /**
-        For later: Function to get the IP address of devices in  lan
+ Do NOT delete!
+ For later: Function to get the IP address of devices in  lan
  */
 //  func getIPAddress() -> String {
 //      var address: String?
@@ -110,13 +116,12 @@ class MainViewController: UIViewController
     linAccelZTextField.textColor = UIColor.blue
     linAccelZTextField.borderStyle = .none
     deviceNameLabel.textColor = UIColor.black
-    deviceNameLabel.text = "Device"
     yawLabel.textColor = UIColor.black
-    yawLabel.text = "Yaw"
     pitchLabel.textColor = UIColor.black
-    pitchLabel.text = "Pitch"
     linAccelZLabel.textColor = UIColor.black
-    linAccelZLabel.text = "LinAccelZ"
+    distanceLabel.textColor = UIColor.black
+    distanceTextField.backgroundColor = UIColor.white
+    distanceTextField.textColor = UIColor.blue
   }
   
   func setUIDefaultValues()
@@ -125,6 +130,12 @@ class MainViewController: UIViewController
     deviceNameTextField.text = "Disconneced"
     pitchTextField.text = "---"
     linAccelZTextField.text = "---"
+    distanceTextField.text = "---"
+    deviceNameLabel.text = "Device"
+    yawLabel.text = "Yaw"
+    pitchLabel.text = "Pitch"
+    linAccelZLabel.text = "LinAccelZ"
+    distanceLabel.text = "RTK vs. iOS in m"
   }
   
   override func viewDidLoad()
@@ -157,7 +168,7 @@ class MainViewController: UIViewController
     deviceNameTextField.textColor = UIColor.blue
     deviceNameTextField.borderStyle = .none
     
-//    print("wifi: \(String(describing: getIPAddress()))")
+//    print("wifi: \(String(describing: getIPAddress()))") // Do NOT delete
 
   }
  
@@ -167,6 +178,19 @@ class MainViewController: UIViewController
                                               latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
       mapView.setRegion(coordinateRegion, animated: false)
   }
+  
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation] )
+  {
+    if let location = locations.first
+    {
+      let latitude = location.coordinate.latitude
+      let longitude = location.coordinate.longitude
+      // Handle location update
+      let message = String(format: "User location Lat: %.9f, Lon: %.9f", latitude, longitude)
+      logger.log("User location %{public}@ \(#function), \(message)")
+      }
+  }
+
   
   func onHeadtrackingReceived(_ orientation: String)
   {
@@ -197,18 +221,6 @@ override func didReceiveMemoryWarning()
 func onRealtimeKinematicsReceived(_ position: String)
   {
     let token = position.components(separatedBy: delimiter)
-//  if  token.count == 2
-//    { // Receiving mm precision values
-//    let latitude = (token[0] as NSString).doubleValue * pow(10, -7)
-//    let longitude = (token[1]as NSString).doubleValue * pow(10, -7)
-//    let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//    print("RTK, Latitude: \(locationCoord.latitude), Longitude: \(locationCoord.longitude)")
-//    let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
-//    centerMapOnLocation(location: location)
-//    rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
-//    mapView.addAnnotation(rtkPositionAnnotation)
-//
-//  }
     if  token.count == 4
     { // Sending high precision values (1/mm)
       let lat = (token[0] as NSString).doubleValue * pow(10, -7)
@@ -216,16 +228,22 @@ func onRealtimeKinematicsReceived(_ position: String)
       let latitude = lat + latHp
       let lon = (token[2] as NSString).doubleValue * pow(10, -7)
       let lonHp = (token[3] as NSString).doubleValue * pow(10, -9)
-      print(String(format: "lat: %.7f", lat), String(format: "latHp: %.9f", latHp))
-      print(String(format: "lon: %.7f", lon), String(format: "lonHp: %.9f", lonHp))
+//      print(String(format: "lat: %.7f", lat), String(format: "latHp: %.9f", latHp))
+//      print(String(format: "lon: %.7f", lon), String(format: "lonHp: %.9f", lonHp))
 
       let longitude = lon + lonHp
       let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-      print(String(format: "RTK, Latitude: %.9f, Longitude: %.9f", locationCoord.latitude, locationCoord.longitude))
+//      print(String(format: "RTK, Latitude: %.9f, Longitude: %.9f", locationCoord.latitude, locationCoord.longitude))
       let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       centerMapOnLocation(location: location)
       rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       mapView.addAnnotation(rtkPositionAnnotation)
+      if locationManager.location != nil {
+        let distance = location.distance(from: locationManager.location!)
+        self.distanceTextField.text = String(format: "%.3f", distance)
+      }
+      let message = String(format: "User location Lat: %.9f, Lon: %.9f", latitude, longitude)
+      logger.log("RTK location %{public}@ \(#function), \(message)")
     }
     else
     {
@@ -243,6 +261,7 @@ func onRTKAccuracyReceived(_ accuracy: String)
 
 }
 
+@available(iOS 14.0, *)
 extension MainViewController: CBCentralManagerDelegate
 {
   func centralManagerDidUpdateState(_ central: CBCentralManager)
@@ -326,6 +345,7 @@ extension MainViewController: CBCentralManagerDelegate
 }
 
 
+@available(iOS 14.0, *)
 extension MainViewController: CBPeripheralDelegate {
   
   func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -431,25 +451,24 @@ extension String {
 }
 
 
+@available(iOS 14.0, *)
 extension MainViewController: CLLocationManagerDelegate {
     
     // iOS 14
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        if #available(iOS 14.0, *) {
-            switch manager.authorizationStatus {
-            case .notDetermined:
-                print("Not determined")
-            case .restricted:
-                print("Restricted")
-            case .denied:
-                print("Denied")
-            case .authorizedAlways:
-                print("Authorized Always")
-            case .authorizedWhenInUse:
-                print("Authorized When in Use")
-            @unknown default:
-                print("Unknown status")
-            }
+          switch manager.authorizationStatus {
+          case .notDetermined:
+              print("Not determined")
+          case .restricted:
+              print("Restricted")
+          case .denied:
+              print("Denied")
+          case .authorizedAlways:
+              print("Authorized Always")
+          case .authorizedWhenInUse:
+              print("Authorized When in Use")
+          @unknown default:
+              print("Unknown status")
         }
     }
     
