@@ -66,6 +66,7 @@ class MainViewController: UIViewController
   let regionRadius: CLLocationDistance = 25
   let delimiter = ","
   let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "RTKHTDemo", category: "testing")
+  var firstRunnedFlag: Bool = false
 
  
 /**
@@ -101,7 +102,14 @@ class MainViewController: UIViewController
 //      }
 //      return address ?? ""
 //  }
-
+  
+  @objc func didTapMapView(_ sender: UITapGestureRecognizer)
+  {
+    if locationManager.location != nil
+    {
+      centerMapOnLocation(location: locationManager.location!)
+    }
+  }
   
   func setupUI()
   {
@@ -135,7 +143,7 @@ class MainViewController: UIViewController
     yawLabel.text = "Yaw"
     pitchLabel.text = "Pitch"
     linAccelZLabel.text = "LinAccelZ"
-    distanceLabel.text = "RTK vs. iOS in m"
+    distanceLabel.text = "∆s RTK, iOS"
   }
   
   override func viewDidLoad()
@@ -144,8 +152,6 @@ class MainViewController: UIViewController
     setupUI()
     setUIDefaultValues()
     locationManager = CLLocationManager()
-    locationManager.delegate = self
-    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     rtkPositionAnnotation.title = "RTK"
     rtkPositionAnnotation.subtitle = ""
     
@@ -154,25 +160,28 @@ class MainViewController: UIViewController
     {
       locationManager.requestAlwaysAuthorization()
       locationManager.requestWhenInUseAuthorization()
-      locationManager.startUpdatingLocation()
-      locationManager.startUpdatingHeading()
+      if locationManager != nil
+      {
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+      }
+      
       mapView.mapType = MKMapType.satellite//Flyover
       mapView.isRotateEnabled = false
       //mapView.setUserTrackingMode(.followWithHeading, animated: false)
       mapView.showsUserLocation = true
-      if locationManager.location != nil
-      {
-        centerMapOnLocation(location: locationManager.location!)
-      }
+      // Initialize Tap Gesture Recognizer
+      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapMapView(_:)))
+      mapView.addGestureRecognizer(tapGestureRecognizer)
     }
 
     centralManager = CBCentralManager(delegate: self, queue: nil)
     deviceNameTextField.backgroundColor = UIColor.white
     deviceNameTextField.textColor = UIColor.blue
     deviceNameTextField.borderStyle = .none
-    
 //    print("wifi: \(String(describing: getIPAddress()))") // Do NOT delete
-
   }
  
   func centerMapOnLocation(location: CLLocation)
@@ -188,14 +197,29 @@ class MainViewController: UIViewController
     {
       let latitude = location.coordinate.latitude
       let longitude = location.coordinate.longitude
+      
       // Handle location update
-      let message = String(format: "User location Lat: %.9f, Lon: %.9f", latitude, longitude)
-//      centerMapOnLocation(location: location)
-      logger.log("User location %{public}@ \(#function), \(message)")
+      var message: String = "accuracyAuthorization: "
+      switch locationManager!.accuracyAuthorization {
+      case .fullAccuracy:
+        message = "Full Accuracy"
+      case .reducedAccuracy:
+        message = "Reduced Accuracy"
+      @unknown default:
+        message = "Unknown Precise Location..."
       }
+      
+      message += String(format: ", User location Lat: %.9f, Lon: %.9f", latitude, longitude)
+      logger.log("iOS location %{public}@ \(#function), desiredAccuracy: \(String(describing: self.locationManager.desiredAccuracy)), \(message)")
+      
+      if  self.firstRunnedFlag == false
+      {
+        centerMapOnLocation(location: location) // Follow location
+        self.firstRunnedFlag = true
+      }
+    }
   }
 
-  
   func onHeadtrackingReceived(_ orientation: String)
   {
     let token = orientation.components(separatedBy: delimiter)
@@ -232,20 +256,16 @@ func onRealtimeKinematicsReceived(_ position: String)
       let latitude = lat + latHp
       let lon = (token[2] as NSString).doubleValue * pow(10, -7)
       let lonHp = (token[3] as NSString).doubleValue * pow(10, -9)
-//      print(String(format: "lat: %.7f", lat), String(format: "latHp: %.9f", latHp))
-//      print(String(format: "lon: %.7f", lon), String(format: "lonHp: %.9f", lonHp))
-
       let longitude = lon + lonHp
       let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//      print(String(format: "RTK, Latitude: %.9f, Longitude: %.9f", locationCoord.latitude, locationCoord.longitude))
       let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       mapView.addAnnotation(rtkPositionAnnotation)
       if locationManager.location != nil {
         let distance = location.distance(from: locationManager.location!)
-        self.distanceTextField.text = String(format: "%.3f", distance)
+        self.distanceTextField.text = String(format: "%.3f m", distance)
       }
-      let message = String(format: "User location Lat: %.9f, Lon: %.9f", latitude, longitude)
+      let message = String(format: "User location Lat.: %.9f, Lon.: %.9f", latitude, longitude)
       logger.log("RTK location %{public}@ \(#function), \(message)")
     }
     else
@@ -271,7 +291,6 @@ extension MainViewController: CBCentralManagerDelegate
   {
     switch central.state
     {
-      
       case .unknown:
       print("central.state is .unknown")
       setUIDefaultValues()
@@ -305,7 +324,6 @@ extension MainViewController: CBCentralManagerDelegate
       print("scanning for peripherals with service(s): \([headTrackerServiceCBUUID])")
       centralManager.scanForPeripherals(withServices: [headTrackerServiceCBUUID], options: nil)
       break
-    
     @unknown default:
       print("centralManagerDidUpdateState - Action needed: Handle unknown default")
       setUIDefaultValues()
@@ -334,7 +352,6 @@ extension MainViewController: CBCentralManagerDelegate
   {
     print("Connected!")
     headTrackerPeripheral.discoverServices([headTrackerServiceCBUUID])
-
   }
   
   func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?)
@@ -344,7 +361,6 @@ extension MainViewController: CBCentralManagerDelegate
     mapView.removeAnnotation(rtkPositionAnnotation)
     centralManager.scanForPeripherals(withServices: [headTrackerServiceCBUUID], options: nil)
   }
-  
 }
 
 
@@ -440,8 +456,6 @@ extension MainViewController: CBPeripheralDelegate {
       return  packetStr
   }
 }
-
-
 
 // Mark:- String extension(s)
 
