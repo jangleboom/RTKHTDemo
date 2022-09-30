@@ -145,7 +145,8 @@ class MainViewController: UIViewController
     setUIDefaultValues()
     locationManager = CLLocationManager()
     locationManager.delegate = self
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     rtkPositionAnnotation.title = "RTK"
     rtkPositionAnnotation.subtitle = ""
     
