@@ -127,7 +127,7 @@ class MainViewController: UIViewController
   func setUIDefaultValues()
   {
     yawTextField.text = "---"
-    deviceNameTextField.text = "Disconneced"
+    deviceNameTextField.text = "Disconnected"
     pitchTextField.text = "---"
     linAccelZTextField.text = "---"
     distanceTextField.text = "---"
@@ -145,7 +145,6 @@ class MainViewController: UIViewController
     setUIDefaultValues()
     locationManager = CLLocationManager()
     locationManager.delegate = self
-//    locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     rtkPositionAnnotation.title = "RTK"
     rtkPositionAnnotation.subtitle = ""
@@ -155,15 +154,18 @@ class MainViewController: UIViewController
     {
       locationManager.requestAlwaysAuthorization()
       locationManager.requestWhenInUseAuthorization()
+      locationManager.startUpdatingLocation()
+      locationManager.startUpdatingHeading()
+      mapView.mapType = MKMapType.satellite//Flyover
+      mapView.isRotateEnabled = false
+      //mapView.setUserTrackingMode(.followWithHeading, animated: false)
+      mapView.showsUserLocation = true
+      if locationManager.location != nil
+      {
+        centerMapOnLocation(location: locationManager.location!)
+      }
     }
-    
-    locationManager.startUpdatingLocation()
-    locationManager.startUpdatingHeading()
-    mapView.mapType = MKMapType.satellite//Flyover
-    mapView.isRotateEnabled = false
-    //mapView.setUserTrackingMode(.followWithHeading, animated: false)
-    mapView.showsUserLocation = true
-    
+
     centralManager = CBCentralManager(delegate: self, queue: nil)
     deviceNameTextField.backgroundColor = UIColor.white
     deviceNameTextField.textColor = UIColor.blue
@@ -188,6 +190,7 @@ class MainViewController: UIViewController
       let longitude = location.coordinate.longitude
       // Handle location update
       let message = String(format: "User location Lat: %.9f, Lon: %.9f", latitude, longitude)
+//      centerMapOnLocation(location: location)
       logger.log("User location %{public}@ \(#function), \(message)")
       }
   }
@@ -236,7 +239,6 @@ func onRealtimeKinematicsReceived(_ position: String)
       let locationCoord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
 //      print(String(format: "RTK, Latitude: %.9f, Longitude: %.9f", locationCoord.latitude, locationCoord.longitude))
       let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
-      centerMapOnLocation(location: location)
       rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       mapView.addAnnotation(rtkPositionAnnotation)
       if locationManager.location != nil {
@@ -338,7 +340,7 @@ extension MainViewController: CBCentralManagerDelegate
   func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?)
   {
     setUIDefaultValues()
-    print("Disconneced! Start scanning again...")
+    print("Disconnected! Start scanning again...")
     mapView.removeAnnotation(rtkPositionAnnotation)
     centralManager.scanForPeripherals(withServices: [headTrackerServiceCBUUID], options: nil)
   }
