@@ -231,7 +231,7 @@ class MainViewController: UIViewController
 
       yawTextField.text = "\(yaw)°"
       pitchTextField.text = "\(pitch)°"
-      linAccelZTextField.text = "\(linAccelZ)"
+      linAccelZTextField.text = "\(linAccelZ) mg"
     }
     else
     {
