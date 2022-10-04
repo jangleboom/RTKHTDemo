@@ -1,13 +1,6 @@
 
-![alt-text-1](./Screenshots/HeadtrackerMonitor1.png "CoreLocation user position & realtime-kinematics rover position.")
-![alt-text-2](./Screenshots/HeadtrackerMonitor2.png "RTK rover accuracy as subtitle on touch at the annotation.")
-![alt-text-3](./Screenshots/HeadtrackerMonitor3.png "Auch das kommt vor.")
+![alt-text-1](./Screenshots/rtkhtdemo.png "CoreLocation user position & realtime-kinematics rover position.")
 
-<!--![plot](./Screenshots/HeadtrackerMonitor1.png)-->
-<!--![plot](./Screenshots/HeadtrackerMonitor2.png)-->
-
-<!--<img src="./Screenshots/HeadtrackerMonitor1.png" width="320"/> -->
-<!--<img src="./Screenshots/HeadtrackerMonitor2.png" width="320"/> -->
-<!--<img src="./Screenshots/HeadtrackerMonitor3.png" width="320"/> -->
+<!--<img src="./Screenshots/rtkhtdemo.png" width="320"/> -->
 
 
