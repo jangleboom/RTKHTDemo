@@ -200,11 +200,14 @@ class MainViewController: UIViewController
       
       // Handle location update
       var message: String = "accuracyAuthorization: "
-      switch locationManager!.accuracyAuthorization {
+      switch locationManager!.accuracyAuthorization
+      {
       case .fullAccuracy:
         message = "Full Accuracy"
+        
       case .reducedAccuracy:
         message = "Reduced Accuracy"
+        
       @unknown default:
         message = "Unknown Precise Location..."
       }
@@ -261,7 +264,8 @@ func onRealtimeKinematicsReceived(_ position: String)
       let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       mapView.addAnnotation(rtkPositionAnnotation)
-      if locationManager.location != nil {
+      if locationManager.location != nil
+      {
         let distance = location.distance(from: locationManager.location!)
         self.distanceTextField.text = String(format: "%.3f m", distance)
       }
@@ -338,7 +342,8 @@ extension MainViewController: CBCentralManagerDelegate
     // You can change this to check for UUID from security reasons
     // TODO: distinguish between multiple devices: nehotspotconfigurationmanager could check the      the wifi client hostname of the connected device "rtkrover123456" and connect the        to same device over BLE. The nehotspotconfigurationmanager is available with paid        apple devoloper license only.
     let deviceFound: Bool = peripheral.name?.starts(with: deviceNamePrefix) ?? false
-    if (deviceFound) {
+    if (deviceFound)
+    {
       headTrackerPeripheral = peripheral
       headTrackerPeripheral.delegate = self
       centralManager.stopScan()
@@ -365,12 +370,14 @@ extension MainViewController: CBCentralManagerDelegate
 
 
 @available(iOS 14.0, *)
-extension MainViewController: CBPeripheralDelegate {
-  
-  func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+extension MainViewController: CBPeripheralDelegate
+{
+  func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?)
+  {
     guard let services = peripheral.services else { return }
     
-    for service in services {
+    for service in services
+    {
       print(service)
       peripheral.discoverCharacteristics(nil, for: service)
     }
@@ -423,33 +430,39 @@ extension MainViewController: CBPeripheralDelegate {
     }
   }
   
-  private func locationData(from characteristic: CBCharacteristic) -> String {
+  private func locationData(from characteristic: CBCharacteristic) -> String
+  {
     guard let characteristicData = characteristic.value else { return "" }
     let byteArray = [UInt8](characteristicData)
     var packetStr = ""
-    for u in byteArray {
+    for u in byteArray
+    {
       let char = Character(UnicodeScalar(u))
       packetStr.append(char)
     }
       return  packetStr
   }
   
-  private func orientationData(from characteristic: CBCharacteristic) -> String {
+  private func orientationData(from characteristic: CBCharacteristic) -> String
+  {
     guard let characteristicData = characteristic.value else { return "" }
     let byteArray = [UInt8](characteristicData)
     var packetStr = ""
-    for u in byteArray {
+    for u in byteArray
+    {
       let char = Character(UnicodeScalar(u))
       packetStr.append(char)
     }
       return  packetStr
   }
   
-  private func locationAccuracy(from characteristic: CBCharacteristic) -> String {
+  private func locationAccuracy(from characteristic: CBCharacteristic) -> String
+  {
     guard let characteristicData = characteristic.value else { return "" }
     let byteArray = [UInt8](characteristicData)
     var packetStr = ""
-    for u in byteArray {
+    for u in byteArray
+    {
       let char = Character(UnicodeScalar(u))
       packetStr.append(char)
     }
@@ -462,48 +475,64 @@ extension MainViewController: CBPeripheralDelegate {
 // Compare two Strings
 extension String {
   
-  func isEqualToString(find: String) -> Bool {
+  func isEqualToString(find: String) -> Bool
+  {
     return String(format: self) == find
   }
 }
 
 
 @available(iOS 14.0, *)
-extension MainViewController: CLLocationManagerDelegate {
-    
+extension MainViewController: CLLocationManagerDelegate
+{
     // iOS 14
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-          switch manager.authorizationStatus {
-          case .notDetermined:
-              print("Not determined")
-          case .restricted:
-              print("Restricted")
-          case .denied:
-              print("Denied")
-          case .authorizedAlways:
-              print("Authorized Always")
-          case .authorizedWhenInUse:
-              print("Authorized When in Use")
-          @unknown default:
-              print("Unknown status")
-        }
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager)
+  {
+    switch manager.authorizationStatus
+    {
+    case .notDetermined:
+          print("Not determined")
+      
+    case .restricted:
+        print("Restricted")
+      
+    case .denied:
+        print("Denied")
+      
+    case .authorizedAlways:
+        print("Authorized Always")
+      
+    case .authorizedWhenInUse:
+        print("Authorized When in Use")
+      
+    @unknown default:
+        print("Unknown status")
     }
+    
+  }
     
     // iOS 13 and below
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            print("Not determined")
-        case .restricted:
-            print("Restricted")
-        case .denied:
-            print("Denied")
-        case .authorizedAlways:
-            print("Authorized Always")
-        case .authorizedWhenInUse:
-            print("Authorized When in Use")
-        @unknown default:
-            print("Unknown status")
-        }
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
+  {
+    switch status
+    {
+    case .notDetermined:
+        print("Not determined")
+      
+    case .restricted:
+        print("Restricted")
+      
+    case .denied:
+        print("Denied")
+      
+    case .authorizedAlways:
+        print("Authorized Always")
+      
+    case .authorizedWhenInUse:
+        print("Authorized When in Use")
+      
+    @unknown default:
+        print("Unknown status")
     }
+  }
 }
