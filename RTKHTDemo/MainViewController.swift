@@ -52,7 +52,6 @@ class MainViewController: UIViewController
   @IBOutlet weak var linAccelZLabel: UILabel!
   @IBOutlet weak var mapView: MKMapView!
 
-  
   var locationManager: CLLocationManager!
   let headTrackerServiceCBUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
   let headTrackerCharacteristicCBUUID = CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
@@ -68,7 +67,6 @@ class MainViewController: UIViewController
   let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "RTKHTDemo", category: "testing")
   var firstRunnedFlag: Bool = false
 
- 
 /**
  Do NOT delete!
  For later: Function to get the IP address of devices in  lan
@@ -105,6 +103,8 @@ class MainViewController: UIViewController
   
   @objc func didTapMapView(_ sender: UITapGestureRecognizer)
   {
+    self.view.endEditing(true) // If the keyboard is popped up, dismiss it
+    
     if locationManager.location != nil
     {
       centerMapOnLocation(location: locationManager.location!)
@@ -217,7 +217,7 @@ class MainViewController: UIViewController
       
       if  self.firstRunnedFlag == false
       {
-        centerMapOnLocation(location: location) // Follow location
+        centerMapOnLocation(location: location) // Zoom to user location
         self.firstRunnedFlag = true
       }
     }
@@ -249,9 +249,10 @@ override func didReceiveMemoryWarning()
     print("didReceiveMemoryWarning")
   }
   
-func onRealtimeKinematicsReceived(_ position: String)
+func onRealtimeKinematicsReceived(_ location: String)
   {
-    let token = position.components(separatedBy: delimiter)
+    let token = location.components(separatedBy: delimiter)
+    
     if  token.count == 4
     { // Sending high precision values (1/mm)
       let lat = (token[0] as NSString).doubleValue * pow(10, -7)
@@ -264,11 +265,14 @@ func onRealtimeKinematicsReceived(_ position: String)
       let location = CLLocation(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       rtkPositionAnnotation.coordinate = CLLocationCoordinate2D(latitude: locationCoord.latitude, longitude: locationCoord.longitude)
       mapView.addAnnotation(rtkPositionAnnotation)
+      
       if locationManager.location != nil
       {
         let distance = location.distance(from: locationManager.location!)
         self.distanceTextField.text = String(format: "%.3f m", distance)
+        logger.log("Distance iOS location to rtk location %{public}@ \(#function), \(String(format: "%.3f m", distance))")
       }
+      
       let message = String(format: "User location Lat.: %.9f, Lon.: %.9f", latitude, longitude)
       logger.log("RTK location %{public}@ \(#function), \(message)")
     }
@@ -281,9 +285,9 @@ func onRealtimeKinematicsReceived(_ position: String)
 
 func onRTKAccuracyReceived(_ accuracy: String)
   {
-    let rtkAccuracy = (accuracy as NSString).integerValue
-    print("RTK accuracy: \(rtkAccuracy) mm")
-    rtkPositionAnnotation.subtitle = "Accuracy: " + String(rtkAccuracy) + " mm"
+    let rtkHAccuracy = (accuracy as NSString).integerValue
+    print("RTK accuracy: \(rtkHAccuracy) mm")
+    rtkPositionAnnotation.subtitle = "hAccuracy: " + String(rtkHAccuracy) + " mm"
   }
 
 }
@@ -301,33 +305,39 @@ extension MainViewController: CBCentralManagerDelegate
       deviceNameTextField.text = "BLE unknown"
       mapView.removeAnnotation(rtkPositionAnnotation)
       break
+      
     case .resetting:
       print("central.state is .resetting")
       setUIDefaultValues()
       deviceNameTextField.text = "BLE resetting"
       mapView.removeAnnotation(rtkPositionAnnotation)
       break
+      
     case .unsupported:
       print("central.state is .unsupported")
       deviceNameTextField.text = "BLE unsupported"
       setUIDefaultValues()
       break
+      
     case .unauthorized:
       print("central.state is .unauthorized")
       setUIDefaultValues()
       deviceNameTextField.text = "BLE unauthorized"
       break
+      
     case .poweredOff:
       print("central.state is .poweredOff")
       setUIDefaultValues()
       deviceNameTextField.text = "BLE powered off"
       mapView.removeAnnotation(rtkPositionAnnotation)
       break
+      
     case .poweredOn:
       print("central.state is .poweredOn")
       print("scanning for peripherals with service(s): \([headTrackerServiceCBUUID])")
       centralManager.scanForPeripherals(withServices: [headTrackerServiceCBUUID], options: nil)
       break
+      
     @unknown default:
       print("centralManagerDidUpdateState - Action needed: Handle unknown default")
       setUIDefaultValues()
@@ -418,9 +428,11 @@ extension MainViewController: CBPeripheralDelegate
       case headTrackerCharacteristicCBUUID:
         let orientationString = orientationData(from: characteristic)
         onHeadtrackingReceived(orientationString)
+      
       case realTimeKinematicsCharacteristicCBUUID:
         let positionString = locationData(from: characteristic)
         onRealtimeKinematicsReceived(positionString)
+      
       case rtkAccuracyCharacteristicCBUUID:
         let accuracyString = locationAccuracy(from: characteristic)
         onRTKAccuracyReceived(accuracyString)
