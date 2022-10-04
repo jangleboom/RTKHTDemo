@@ -1,7 +1,7 @@
 
 <!--![alt-text-1](./Screenshots/rtkhtdemo.png "CoreLocation user position & realtime-kinematics rover position.")-->
 
-<img align="right" src="./Screenshots/rtkhtdemo.png" width="320"/> 
+<img align="right" src="./Screenshots/rtkhtdemo.png" width="240"/> 
 
 ### Real Time Kinematics & Head Tracking Monitor
 
