@@ -28,6 +28,8 @@
  * THE SOFTWARE.
  */
 
+// TODO: distinguish between multiple devices: nehotspotconfigurationmanager could check the wifi client hostname of the connected device "rtkrover123456" and connect the to same device over BLE. The nehotspotconfigurationmanager is available with paid apple devoloper license only.
+
 import UIKit
 import CoreBluetooth
 import MapKit
@@ -165,7 +167,9 @@ class MainViewController: UIViewController
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        /* this option will use the most power from your device, kCLLocationAccuracyBestForNavigation is intended to be used for automobile navigation, not our use case */
+                                                                   
       }
       
       mapView.mapType = MKMapType.satellite//Flyover
@@ -212,8 +216,8 @@ class MainViewController: UIViewController
         message = "Unknown Precise Location..."
       }
       
-      message += String(format: ", User location Lat: %.9f, Lon: %.9f", latitude, longitude)
-      logger.log("iOS location %{public}@ \(#function), desiredAccuracy: \(String(describing: self.locationManager.desiredAccuracy)), \(message)")
+//      message += String(format: ", User location Lat: %.9f, Lon: %.9f", latitude, longitude)
+//      logger.log("iOS location %{public}@ \(#function), desiredAccuracy: \(String(describing: self.locationManager.desiredAccuracy)), \(message)")
       
       if  self.firstRunnedFlag == false
       {
@@ -231,10 +235,12 @@ class MainViewController: UIViewController
       let yaw = String(token[0])
       let pitch = String(token[1])
       let linAccelZ = ((token[2] as NSString).floatValue < 0) ? String(token[2]) : (" " + String(token[2]))
-
+      
+      
       yawTextField.text = "\(yaw)°"
       pitchTextField.text = "\(pitch)°"
       linAccelZTextField.text = "\(linAccelZ) mg"
+      logger.log("yaw: \(yaw), pitch: \(pitch), \(linAccelZ)")
     }
     else
     {
@@ -270,11 +276,11 @@ func onRealtimeKinematicsReceived(_ location: String)
       {
         let distance = location.distance(from: locationManager.location!)
         self.distanceTextField.text = String(format: "%.3f m", distance)
-        logger.log("Distance iOS location to rtk location %{public}@ \(#function), \(String(format: "%.3f m", distance))")
+//        logger.log("Distance iOS location to rtk location %{public}@ \(#function), \(String(format: "%.3f m", distance))")
       }
       
-      let message = String(format: "User location Lat.: %.9f, Lon.: %.9f", latitude, longitude)
-      logger.log("RTK location %{public}@ \(#function), \(message)")
+//      let message = String(format: "User location Lat.: %.9f, Lon.: %.9f", latitude, longitude)
+//      logger.log("RTK location %{public}@ \(#function), \(message)")
     }
     else
     {
@@ -286,7 +292,7 @@ func onRealtimeKinematicsReceived(_ location: String)
 func onRTKAccuracyReceived(_ accuracy: String)
   {
     let rtkHAccuracy = (accuracy as NSString).integerValue
-    print("RTK accuracy: \(rtkHAccuracy) mm")
+//    logger.log("\(#function) %{public}@ RTK accuracy: \(rtkHAccuracy) mm")
     rtkPositionAnnotation.subtitle = "hAccuracy: " + String(rtkHAccuracy) + " mm"
   }
 
@@ -350,7 +356,6 @@ extension MainViewController: CBCentralManagerDelegate
   {
     print(String("Peripheral discovered: \(peripheral.name ?? "unknown")"))
     // You can change this to check for UUID from security reasons
-    // TODO: distinguish between multiple devices: nehotspotconfigurationmanager could check the      the wifi client hostname of the connected device "rtkrover123456" and connect the        to same device over BLE. The nehotspotconfigurationmanager is available with paid        apple devoloper license only.
     let deviceFound: Bool = peripheral.name?.starts(with: deviceNamePrefix) ?? false
     if (deviceFound)
     {
