@@ -42,18 +42,18 @@ class MainViewController: UIViewController
 {
  
 
-  @IBOutlet weak var distanceLabel: UILabel!
-  @IBOutlet weak var distanceTextField: UITextField!
-  @IBOutlet weak var deviceNameTextField: UITextField!
-  @IBOutlet weak var yawTextField: UITextField!
-  @IBOutlet weak var pitchTextField: UITextField!
-  @IBOutlet weak var linAccelZTextField: UITextField!
+  @IBOutlet weak var distanceLabel: UILabel! 
+  @IBOutlet weak var deviceNameLabelValue: UILabel!
   @IBOutlet weak var deviceNameLabel: UILabel!
+  @IBOutlet weak var yawLabelValue: UILabel!
+  @IBOutlet weak var pitchLabelValue: UILabel!
   @IBOutlet weak var yawLabel: UILabel!
   @IBOutlet weak var pitchLabel: UILabel!
   @IBOutlet weak var linAccelZLabel: UILabel!
+  @IBOutlet weak var linAccelZLabelValue: UILabel!
   @IBOutlet weak var mapView: MKMapView!
-
+  @IBOutlet weak var distanceLabelValue: UILabel!
+  
   var locationManager: CLLocationManager!
   let headTrackerServiceCBUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
   let headTrackerCharacteristicCBUUID = CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
@@ -116,36 +116,35 @@ class MainViewController: UIViewController
   func setupUI()
   {
     navigationController?.navigationBar.barTintColor = UIColor.green
-    yawTextField.backgroundColor = UIColor.white
-    yawTextField.textColor = UIColor.blue
-    yawTextField.borderStyle = .none
-    pitchTextField.backgroundColor = UIColor.white
-    pitchTextField.textColor = UIColor.blue
-    pitchTextField.borderStyle = .none
-    linAccelZTextField.backgroundColor = UIColor.white
-    linAccelZTextField.textColor = UIColor.blue
-    linAccelZTextField.borderStyle = .none
+    yawLabelValue.backgroundColor = UIColor.white
+    yawLabelValue.textColor = UIColor.blue
+    pitchLabelValue.backgroundColor = UIColor.white
+    pitchLabelValue.textColor = UIColor.blue
+    linAccelZLabelValue.backgroundColor = UIColor.white
+    linAccelZLabelValue.textColor = UIColor.blue
     deviceNameLabel.textColor = UIColor.black
     yawLabel.textColor = UIColor.black
     pitchLabel.textColor = UIColor.black
     linAccelZLabel.textColor = UIColor.black
     distanceLabel.textColor = UIColor.black
-    distanceTextField.backgroundColor = UIColor.white
-    distanceTextField.textColor = UIColor.blue
+    distanceLabelValue.backgroundColor = UIColor.white
+    distanceLabelValue.textColor = UIColor.blue
   }
   
   func setUIDefaultValues()
   {
-    yawTextField.text = "---"
-    deviceNameTextField.text = "Disconnected"
-    pitchTextField.text = "---"
-    linAccelZTextField.text = "---"
-    distanceTextField.text = "---"
+    yawLabelValue.text = "---"
+    deviceNameLabelValue.text = "Disconnected"
+    pitchLabelValue.text = "---"
+    linAccelZLabelValue.text = "---"
+    distanceLabelValue.text = "---"
     deviceNameLabel.text = "Device"
     yawLabel.text = "Yaw"
     pitchLabel.text = "Pitch"
     linAccelZLabel.text = "LinAccelZ"
     distanceLabel.text = "∆s RTK, iOS"
+    rtkPositionAnnotation.title = "RTK"
+    rtkPositionAnnotation.subtitle = ""
   }
   
   override func viewDidLoad()
@@ -153,38 +152,29 @@ class MainViewController: UIViewController
     super.viewDidLoad()
     setupUI()
     setUIDefaultValues()
-    locationManager = CLLocationManager()
-    rtkPositionAnnotation.title = "RTK"
-    rtkPositionAnnotation.subtitle = ""
     
-    // Check for Location Services
-    if (CLLocationManager.locationServicesEnabled())
-    {
-      locationManager.requestAlwaysAuthorization()
-      locationManager.requestWhenInUseAuthorization()
-      if locationManager != nil
-      {
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        /* this option will use the most power from your device, kCLLocationAccuracyBestForNavigation is intended to be used for automobile navigation, not our use case */
-                                                                   
-      }
+    locationManager = CLLocationManager()
+    locationManager.delegate = self
+    locationManager.requestAlwaysAuthorization()
+    locationManager.requestWhenInUseAuthorization()
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.startUpdatingLocation()
+    locationManager.startUpdatingHeading()
+    /* this option will use the most power from your device, kCLLocationAccuracyBestForNavigation is intended to be used for automobile navigation, not our use case */
       
-      mapView.mapType = MKMapType.satellite//Flyover
-      mapView.isRotateEnabled = false
-      //mapView.setUserTrackingMode(.followWithHeading, animated: false)
-      mapView.showsUserLocation = true
-      // Initialize Tap Gesture Recognizer
-      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapMapView(_:)))
-      mapView.addGestureRecognizer(tapGestureRecognizer)
-    }
+    mapView.mapType = MKMapType.satellite//Flyover
+    mapView.isRotateEnabled = false
+    //mapView.setUserTrackingMode(.followWithHeading, animated: false)
+    mapView.showsUserLocation = true
+    // Initialize Tap Gesture Recognizer
+    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapMapView(_:)))
+    mapView.addGestureRecognizer(tapGestureRecognizer)
+    
 
     centralManager = CBCentralManager(delegate: self, queue: nil)
-    deviceNameTextField.backgroundColor = UIColor.white
-    deviceNameTextField.textColor = UIColor.blue
-    deviceNameTextField.borderStyle = .none
+    deviceNameLabelValue.backgroundColor = UIColor.white
+    deviceNameLabelValue.textColor = UIColor.blue
+//    deviceNameLabelValue.borderStyle = .none
 //    print("wifi: \(String(describing: getIPAddress()))") // Do NOT delete
   }
  
@@ -216,8 +206,8 @@ class MainViewController: UIViewController
         message = "Unknown Precise Location..."
       }
       
-//      message += String(format: ", User location Lat: %.9f, Lon: %.9f", latitude, longitude)
-//      logger.log("iOS location %{public}@ \(#function), desiredAccuracy: \(String(describing: self.locationManager.desiredAccuracy)), \(message)")
+      message += String(format: ", User location Lat: %.9f, Lon: %.9f", latitude, longitude)
+      logger.log("iOS location %{public}@ \(#function), desiredAccuracy: \(String(describing: self.locationManager.desiredAccuracy)), \(message)")
       
       if  self.firstRunnedFlag == false
       {
@@ -237,9 +227,9 @@ class MainViewController: UIViewController
       let linAccelZ = ((token[2] as NSString).floatValue < 0) ? String(token[2]) : (" " + String(token[2]))
       
       
-      yawTextField.text = "\(yaw)°"
-      pitchTextField.text = "\(pitch)°"
-      linAccelZTextField.text = "\(linAccelZ) mg"
+      yawLabelValue.text = "\(yaw)°"
+      pitchLabelValue.text = "\(pitch)°"
+      linAccelZLabelValue.text = "\(linAccelZ) mg"
       logger.log("yaw: \(yaw), pitch: \(pitch), \(linAccelZ)")
     }
     else
@@ -275,7 +265,7 @@ func onRealtimeKinematicsReceived(_ location: String)
       if locationManager.location != nil
       {
         let distance = location.distance(from: locationManager.location!)
-        self.distanceTextField.text = String(format: "%.3f m", distance)
+        self.distanceLabelValue.text = String(format: "%.3f m", distance)
 //        logger.log("Distance iOS location to rtk location %{public}@ \(#function), \(String(format: "%.3f m", distance))")
       }
       
@@ -308,33 +298,33 @@ extension MainViewController: CBCentralManagerDelegate
       case .unknown:
       print("central.state is .unknown")
       setUIDefaultValues()
-      deviceNameTextField.text = "BLE unknown"
+      deviceNameLabelValue.text = "BLE unknown"
       mapView.removeAnnotation(rtkPositionAnnotation)
       break
       
     case .resetting:
       print("central.state is .resetting")
       setUIDefaultValues()
-      deviceNameTextField.text = "BLE resetting"
+      deviceNameLabelValue.text = "BLE resetting"
       mapView.removeAnnotation(rtkPositionAnnotation)
       break
       
     case .unsupported:
       print("central.state is .unsupported")
-      deviceNameTextField.text = "BLE unsupported"
+      deviceNameLabelValue.text = "BLE unsupported"
       setUIDefaultValues()
       break
       
     case .unauthorized:
       print("central.state is .unauthorized")
       setUIDefaultValues()
-      deviceNameTextField.text = "BLE unauthorized"
+      deviceNameLabelValue.text = "BLE unauthorized"
       break
       
     case .poweredOff:
       print("central.state is .poweredOff")
       setUIDefaultValues()
-      deviceNameTextField.text = "BLE powered off"
+      deviceNameLabelValue.text = "BLE powered off"
       mapView.removeAnnotation(rtkPositionAnnotation)
       break
       
@@ -347,7 +337,7 @@ extension MainViewController: CBCentralManagerDelegate
     @unknown default:
       print("centralManagerDidUpdateState - Action needed: Handle unknown default")
       setUIDefaultValues()
-      deviceNameTextField.text = "BLE unknown default"
+      deviceNameLabelValue.text = "BLE unknown default"
       break
     }
   }
@@ -364,7 +354,7 @@ extension MainViewController: CBCentralManagerDelegate
       centralManager.stopScan()
       central.connect(headTrackerPeripheral)
       headtrackerDeviceName = peripheral.name!
-      deviceNameTextField.text = headtrackerDeviceName
+      deviceNameLabelValue.text = headtrackerDeviceName
     }
   }
   
@@ -535,21 +525,33 @@ extension MainViewController: CLLocationManagerDelegate
     {
     case .notDetermined:
         print("Not determined")
-      
+        manager.requestAlwaysAuthorization()
+        manager.requestWhenInUseAuthorization()
+        
     case .restricted:
         print("Restricted")
+        manager.stopUpdatingLocation()
+        manager.stopUpdatingHeading()
       
     case .denied:
         print("Denied")
+        manager.stopUpdatingLocation()
+        manager.stopUpdatingHeading()
       
     case .authorizedAlways:
         print("Authorized Always")
+        manager.startUpdatingLocation()
+        manager.startUpdatingHeading()
       
     case .authorizedWhenInUse:
         print("Authorized When in Use")
+        manager.startUpdatingLocation()
+        manager.startUpdatingHeading()
       
     @unknown default:
         print("Unknown status")
+        manager.requestAlwaysAuthorization()
+        manager.requestWhenInUseAuthorization()
     }
   }
 }

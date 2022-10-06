@@ -12,7 +12,7 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="RTKHTDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -20,103 +20,108 @@
                                 <rect key="frame" x="20" y="20" width="291" height="583"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="E2K-BD-Gn8">
-                                        <rect key="frame" x="0.0" y="0.0" width="291" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="291" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QX-07-WY0">
-                                                <rect key="frame" x="0.0" y="0.0" width="41.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="199.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMj-xj-Wqy">
-                                                <rect key="frame" x="91.5" y="0.0" width="199.5" height="34"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="NKO-Qf-L4z">
+                                                <rect key="frame" x="249.5" y="0.0" width="41.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="ozg-hw-WGr"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="0wC-0a-AWt">
-                                        <rect key="frame" x="0.0" y="39" width="291" height="34"/>
+                                        <rect key="frame" x="0.0" y="25.5" width="291" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho2-h2-WBf">
-                                                <rect key="frame" x="0.0" y="0.0" width="41.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="199.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U3I-ww-Jc6">
-                                                <rect key="frame" x="91.5" y="0.0" width="199.5" height="34"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="7DI-ul-lEv">
+                                                <rect key="frame" x="249.5" y="0.0" width="41.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="vTx-Cw-4Bq"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="RZI-RF-3YK">
-                                        <rect key="frame" x="0.0" y="78" width="291" height="34"/>
+                                        <rect key="frame" x="0.0" y="51" width="291" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hl7-ZO-ljo">
-                                                <rect key="frame" x="0.0" y="0.0" width="41.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="199.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FKx-Zn-396">
-                                                <rect key="frame" x="91.5" y="0.0" width="199.5" height="34"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="Znf-Qf-AJE">
+                                                <rect key="frame" x="249.5" y="0.0" width="41.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="WjQ-kO-FTb"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="BB8-6f-kJd">
-                                        <rect key="frame" x="0.0" y="117" width="291" height="34"/>
+                                        <rect key="frame" x="0.0" y="76.5" width="291" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4L-qf-8Qp">
-                                                <rect key="frame" x="0.0" y="0.0" width="41.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="199.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Way-Xs-p14">
-                                                <rect key="frame" x="91.5" y="0.0" width="199.5" height="34"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="DbL-un-OWW">
+                                                <rect key="frame" x="249.5" y="0.0" width="41.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="lls-o6-Ihg"/>
                                     </stackView>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJM-BV-U0N">
-                                        <rect key="frame" x="0.0" y="156" width="291" height="388"/>
-                                    </mapView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" id="g56-SA-hjx">
-                                        <rect key="frame" x="0.0" y="549" width="291" height="34"/>
+                                        <rect key="frame" x="0.0" y="102" width="291" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJM-Ma-2dr">
-                                                <rect key="frame" x="0.0" y="0.0" width="41.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="199.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dBU-kh-Fhy">
-                                                <rect key="frame" x="91.5" y="0.0" width="199.5" height="34"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="qvl-CG-efJ">
+                                                <rect key="frame" x="249.5" y="0.0" width="41.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="uVG-1F-Lmz"/>
                                     </stackView>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJM-BV-U0N">
+                                        <rect key="frame" x="0.0" y="127.5" width="291" height="455.5"/>
+                                    </mapView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -132,17 +137,17 @@
                     <navigationItem key="navigationItem" title="Real Time Kinematics &amp; Head Tracker" id="oM9-J4-V4h"/>
                     <connections>
                         <outlet property="deviceNameLabel" destination="8QX-07-WY0" id="NmN-06-Vez"/>
-                        <outlet property="deviceNameTextField" destination="CMj-xj-Wqy" id="nSI-d4-8c8"/>
+                        <outlet property="deviceNameLabelValue" destination="NKO-Qf-L4z" id="Ys7-sk-dmC"/>
                         <outlet property="distanceLabel" destination="nJM-Ma-2dr" id="LNf-C3-lws"/>
-                        <outlet property="distanceTextField" destination="dBU-kh-Fhy" id="olu-Te-HXE"/>
+                        <outlet property="distanceLabelValue" destination="qvl-CG-efJ" id="B95-60-yJp"/>
                         <outlet property="linAccelZLabel" destination="U4L-qf-8Qp" id="bda-la-B77"/>
-                        <outlet property="linAccelZTextField" destination="Way-Xs-p14" id="wzk-9S-fLW"/>
-                        <outlet property="mapView" destination="FJM-BV-U0N" id="qUS-qq-a1Q"/>
+                        <outlet property="linAccelZLabelValue" destination="DbL-un-OWW" id="MOP-Vb-9ub"/>
+                        <outlet property="mapView" destination="FJM-BV-U0N" id="spM-OG-Hkb"/>
                         <outlet property="navigationItem" destination="oM9-J4-V4h" id="7xO-yT-h6x"/>
                         <outlet property="pitchLabel" destination="hl7-ZO-ljo" id="K62-WF-0Sh"/>
-                        <outlet property="pitchTextField" destination="FKx-Zn-396" id="4Ky-jg-40h"/>
+                        <outlet property="pitchLabelValue" destination="Znf-Qf-AJE" id="C8Z-aU-V9x"/>
                         <outlet property="yawLabel" destination="Ho2-h2-WBf" id="T8k-VL-vRn"/>
-                        <outlet property="yawTextField" destination="U3I-ww-Jc6" id="lom-x0-WFO"/>
+                        <outlet property="yawLabelValue" destination="7DI-ul-lEv" id="sPA-px-jNr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
