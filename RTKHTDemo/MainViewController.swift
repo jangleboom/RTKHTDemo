@@ -495,6 +495,8 @@ extension MainViewController: CLLocationManagerDelegate
     // iOS 14
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager)
   {
+    print("Location Manager Authorization: ")
+    
     switch manager.authorizationStatus
     {
     case .notDetermined:
