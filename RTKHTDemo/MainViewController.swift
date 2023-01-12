@@ -55,11 +55,11 @@ class MainViewController: UIViewController
   @IBOutlet weak var distanceLabelValue: UILabel!
   
   var locationManager: CLLocationManager!
-  let headTrackerServiceCBUUID = CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
-  let headTrackerCharacteristicCBUUID = CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
-  let realTimeKinematicsCharacteristicCBUUID = CBUUID(string: "713D0004-503E-4C75-BA94-3148F18D941E")
-  let rtkAccuracyCharacteristicCBUUID = CBUUID(string: "713D0006-503E-4C75-BA94-3148F18D941E")
-  let deviceNamePrefix = "rtkrover"
+  let headTrackerServiceCBUUID =                CBUUID(string: "713D0000-503E-4C75-BA94-3148F18D941E")
+  let headTrackerCharacteristicCBUUID =         CBUUID(string: "713D0002-503E-4C75-BA94-3148F18D941E")
+  let realTimeKinematicsCharacteristicCBUUID =  CBUUID(string: "713D0004-503E-4C75-BA94-3148F18D941E")
+  let rtkAccuracyCharacteristicCBUUID =         CBUUID(string: "713D0006-503E-4C75-BA94-3148F18D941E")
+  let deviceNamePrefix = ""     // You can set a special prefix here, e. g.: rtk
   var centralManager: CBCentralManager!
   var headTrackerPeripheral: CBPeripheral!
   var headtrackerDeviceName = ""
