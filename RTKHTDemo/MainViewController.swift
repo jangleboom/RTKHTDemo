@@ -65,7 +65,7 @@ class MainViewController: UIViewController
   var headtrackerDeviceName = ""
   var rtkPositionAnnotation = MKPointAnnotation()
   let regionRadius: CLLocationDistance = 25
-  let delimiter = ","
+  let delimiter = " "
   let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "RTKHTDemo", category: "testing")
   var firstRunnedFlag: Bool = false
 
